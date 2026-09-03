@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Pengajuan Sarpras - SIPRAS</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f7fb;
+            color: #172033;
+        }
+
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 250px;
+            height: 100vh;
+            background: #123b63;
+            color: white;
+            padding: 25px 18px;
+        }
+
+        .brand {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .brand img {
+            width: 65px;
+            height: 65px;
+            object-fit: contain;
+            margin-bottom: 10px;
+        }
+
+        .brand h2 {
+            font-size: 23px;
+        }
+
+        .brand p {
+            font-size: 11px;
+            opacity: 0.8;
+            margin-top: 5px;
+        }
+
+        .menu a {
+            display: block;
+            color: white;
+            text-decoration: none;
+            padding: 12px 15px;
+            margin-bottom: 6px;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
+        .menu a:hover,
+        .menu a.active {
+            background: #159447;
+        }
+
+        .logout {
+            position: absolute;
+            bottom: 25px;
+            left: 18px;
+            right: 18px;
+        }
+
+        .logout a {
+            display: block;
+            text-align: center;
+            background: #c0392b;
+            color: white;
+            text-decoration: none;
+            padding: 12px;
+            border-radius: 8px;
+        }
+
+        .main {
+            margin-left: 250px;
+            padding: 30px;
+        }
+
+        .header {
+            background: white;
+            padding: 22px 25px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        .header h1 {
+            color: #123b63;
+            margin-bottom: 8px;
+        }
+
+        .header p {
+            color: #667085;
+        }
+
+        .form-container {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            max-width: 900px;
+        }
+
+        .section-title {
+            color: #123b63;
+            font-size: 19px;
+            margin: 25px 0 15px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #eaecf0;
+        }
+
+        .section-title:first-child {
+            margin-top: 0;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 18px;
+        }
+
+        .form-group {
+            margin-bottom: 5px;
+        }
+
+        .full {
+            grid-column: 1 / -1;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            font-size: 14px;
+            color: #344054;
+            margin-bottom: 7px;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 12px 13px;
+            border: 1px solid #d0d5dd;
+            border-radius: 8px;
+            font-size: 15px;
+            font-family: Arial, sans-serif;
+            outline: none;
+            background: white;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            border-color: #159447;
+        }
+
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .hint {
+            font-size: 12px;
+            color: #667085;
+            margin-top: 5px;
+        }
+
+        .btn-submit {
+            margin-top: 25px;
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 8px;
+            background: #159447;
+            color: white;
+            font-size: 17px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .btn-submit:hover {
+            background: #107b3a;
+        }
+
+        .message {
+            display: none;
+            padding: 14px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .success {
+            background: #dcfae6;
+            color: #067647;
+        }
+
+        .error {
+            background: #fee4e2;
+            color: #b42318;
+        }
+
+        @media (max-width: 700px) {
+
+            .sidebar {
+                position: relative;
+                width: 100%;
+                height: auto;
+            }
+
+            .main {
+                margin-left: 0;
+                padding: 15px;
+            }
+
+            .logout {
+                position: static;
+                margin-top: 20px;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .full {
+                grid-column: auto;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<aside class="sidebar">
+
+    <div class="brand">
+        <img src="../logosipras.png" alt="Logo SIPRAS">
+        <h2>SIPRAS</h2>
+        <p>Organisasi Pemohon</p>
+    </div>
+
+    <nav class="menu">
+        <a href="dashboard.html">Dashboard</a>
+        <a href="profil.html">Profil Organisasi</a>
+        <a href="sarpras.html">Data Sarpras</a>
+        <a href="pengajuan.html" class="active">Pengajuan</a>
+        <a href="jadwal.html">Jadwal</a>
+        <a href="riwayat.html">Riwayat</a>
+    </nav>
+
+    <div class="logout">
+        <a href="../login.html" onclick="logout()">Keluar</a>
+    </div>
+
+</aside>
+
+<main class="main">
+
+    <div class="header">
+        <h1>Pengajuan Penggunaan Sarpras</h1>
+        <p>Isi formulir berikut untuk mengajukan penggunaan sarana dan prasarana sekolah.</p>
+    </div>
+
+    <div class="form-container">
+
+        <div id="successMessage" class="message success"></div>
+        <div id="errorMessage" class="message error"></div>
+
+        <form id="pengajuanForm">
+
+            <h2 class="section-title">Data Pemohon</h2>
+
+            <div class="form-grid">
+
+                <div class="form-group">
+                    <label>Organisasi Pemohon</label>
+                    <input
+                        type="text"
+                        id="organisasi"
+                        placeholder="Contoh: OSIS"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label>Ketua / Pengaju</label>
+                    <input
+                        type="text"
+                        id="pengaju"
+                        placeholder="Nama ketua/pengaju"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label>Kelas</label>
+                    <input
+                        type="text"
+                        id="kelas"
+                        placeholder="Contoh: XI IPA 1"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label>Nomor HP</label>
+                    <input
+                        type="tel"
+                        id="noHp"
+                        placeholder="08xxxxxxxxxx"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label>Guru Pembina</label>
+                    <input
+                        type="text"
+                        id="guruPembina"
+                        placeholder="Nama guru pembina"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label>Kontak Guru Pembina</label>
+                    <input
+                        type="tel"
+                        id="kontakGuru"
+                        placeholder="Nomor HP guru pembina"
+                        required
+                    >
+                </div>
+
+            </div>
+
+            <h2 class="section-title">Detail Penggunaan</h2>
+
+            <div class="form-grid">
+
+                <div class="form-group full">
+                    <label>Sarana / Prasarana</label>
+
+                    <select id="sarpras" required>
+
+                        <option value="">
+                            -- Pilih Sarpras --
+                        </option>
+
+                        <option value="Aula Sekolah">
+                            Aula Sekolah — Kapasitas 200 orang
+                        </option>
+
+                        <option value="Ruang Serbaguna">
+                            Ruang Serbaguna — Kapasitas 100 orang
+                        </option>
+
+                        <option value="Lapangan Sekolah">
+                            Lapangan Sekolah — Kapasitas 300 orang
+                        </option>
+
+                        <option value="Lapangan Basket">
+                            Lapangan Basket — Kapasitas 30 orang
+                        </option>
+
+                        <option value="Lapangan Futsal">
+                            Lapangan Futsal — Kapasitas 30 orang
+                        </option>
+
+                        <option value="Ruang Kelas">
+                            Ruang Kelas — Kapasitas 36 orang
+                        </option>
+
+                        <option value="Lab. Komputer">
+                            Lab. Komputer — Kapasitas 40 orang
+                        </option>
+
+                        <option value="Lab. IPA">
+                            Lab. IPA — Kapasitas 36 orang
+                        </option>
+
+                        <option value="Perpustakaan">
+                            Perpustakaan — Kapasitas 50 orang
+                        </option>
+
+                        <option value="Proyektor">
+                            Proyektor — 3 unit
+                        </option>
+
+                        <option value="Sound System">
+                            Sound System — 2 unit
+                        </option>
+
+                        <option value="Microphone Wireless">
+                            Microphone Wireless — 4 unit
+                        </option>
+
+                        <option value="Speaker Portable">
+                            Speaker Portable — 2 unit
+                        </option>
+
+                        <option value="Kursi">
+                            Kursi — 200 unit
+                        </option>
+
+                        <option value="Meja">
+                            Meja — 50 unit
+                        </option>
+
+                        <option value="Papan Tulis">
+                            Papan Tulis — 10 unit
+                        </option>
+
+                        <option value="Kabel Roll">
+                            Kabel Roll — 10 unit
+                        </option>
+
+                        <option value="Tenda">
+                            Tenda — 5 unit
+                        </option>
+
+                        <option value="Layar Proyektor">
+                            Layar Proyektor — 3 unit
+                        </option>
+
+                    </select>
+
+                    <p class="hint">
+                        Sarpras yang sedang tidak tersedia tidak dapat digunakan.
+                    </p>
+                </div>
+
+                <div class="form-group">
+                    <label>Tanggal Penggunaan</label>
+                    <input
+                        type="date"
+                        id="tanggal"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label>Jam Mulai</label>
+                    <input
+                        type="time"
+                        id="jamMulai"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label>Jam Selesai</label>
+                    <input
+                        type="time"
+                        id="jamSelesai"
+                        required
+                    >
+                </div>
+
+                <div class="form-group full">
+                    <label>Keperluan</label>
+                    <textarea
+                        id="keperluan"
+                        placeholder="Jelaskan keperluan penggunaan sarpras..."
+                        required
+                    ></textarea>
+                </div>
+
+            </div>
+
+            <button type="submit" class="btn-submit">
+                Ajukan Penggunaan
+            </button>
+
+        </form>
+
+    </div>
+
+</main>
+
+<script>
+
+    // Proteksi halaman
+    const loggedIn = sessionStorage.getItem("siprasLoggedIn");
+    const role = sessionStorage.getItem("siprasRole");
+
+    if (loggedIn !== "true" || role !== "organisasi") {
+        window.location.href = "../login.html";
+    }
+
+    function logout() {
+        sessionStorage.removeItem("siprasLoggedIn");
+        sessionStorage.removeItem("siprasRole");
+    }
+
+
+    // Menentukan tanggal minimal = hari ini
+    const today = new Date();
+
+    const yyyy = today.getFullYear();
+    const mm = String(today.getMonth() + 1).padStart(2, "0");
+    const dd = String(today.getDate()).padStart(2, "0");
+
+    document.getElementById("tanggal").min =
+        `${yyyy}-${mm}-${dd}`;
+
+
+    // Form pengajuan
+    document.getElementById("pengajuanForm")
+        .addEventListener("submit", function(event) {
+
+            event.preventDefault();
+
+            const organisasi =
+                document.getElementById("organisasi").value.trim();
+
+            const pengaju =
+                document.getElementById("pengaju").value.trim();
+
+            const kelas =
+                document.getElementById("kelas").value.trim();
+
+            const noHp =
+                document.getElementById("noHp").value.trim();
+
+            const guruPembina =
+                document.getElementById("guruPembina").value.trim();
+
+            const kontakGuru =
+                document.getElementById("kontakGuru").value.trim();
+
+            const sarpras =
+                document.getElementById("sarpras").value;
+
+            const tanggal =
+                document.getElementById("tanggal").value;
+
+            const jamMulai =
+                document.getElementById("jamMulai").value;
+
+            const jamSelesai =
+                document.getElementById("jamSelesai").value;
+
+            const keperluan =
+                document.getElementById("keperluan").value.trim();
+
+
+            // Validasi jam
+            if (jamMulai >= jamSelesai) {
+
+                tampilkanError(
+                    "Jam selesai harus lebih besar dari jam mulai."
+                );
+
+                return;
+            }
+
+
+            // Ambil data pengajuan sebelumnya
+            let dataPeminjaman =
+                JSON.parse(
+                    localStorage.getItem("dataPeminjaman") || "[]"
+                );
+
+
+            // Cek jadwal bentrok
+            const bentrok = dataPeminjaman.some(function(data) {
+
+                if (
+                    data.sarpras !== sarpras ||
+                    data.tanggal !== tanggal ||
+                    data.status === "Ditolak" ||
+                    data.status === "Dibatalkan"
+                ) {
+                    return false;
+                }
+
+                return (
+                    jamMulai < data.jamSelesai &&
+                    jamSelesai > data.jamMulai
+                );
+
+            });
+
+
+            if (bentrok) {
+
+                tampilkanError(
+                    "Jadwal bentrok! Sarpras tersebut sudah memiliki pengajuan pada waktu yang dipilih."
+                );
+
+                return;
+            }
+
+
+            // Buat ID pengajuan
+            const id =
+                "PGJ-" +
+                Date.now();
+
+
+            // Data pengajuan
+            const pengajuan = {
+
+                id: id,
+
+                organisasi: organisasi,
+
+                pengaju: pengaju,
+
+                kelas: kelas,
+
+                noHp: noHp,
+
+                guruPembina: guruPembina,
+
+                kontakGuru: kontakGuru,
+
+                sarpras: sarpras,
+
+                tanggal: tanggal,
+
+                jamMulai: jamMulai,
+
+                jamSelesai: jamSelesai,
+
+                keperluan: keperluan,
+
+                tanggalPengajuan:
+                    new Date().toISOString().split("T")[0],
+
+                status: "Menunggu Persetujuan",
+
+                catatanAdmin: ""
+
+            };
+
+
+            // Simpan
+            dataPeminjaman.push(pengajuan);
+
+            localStorage.setItem(
+                "dataPeminjaman",
+                JSON.stringify(dataPeminjaman)
+            );
+
+
+            // Berhasil
+            tampilkanSukses(
+                "Pengajuan berhasil dibuat dengan ID " +
+                id +
+                ". Status: Menunggu Persetujuan."
+            );
+
+
+            //
