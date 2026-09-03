@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Profil Organisasi - SIPRAS</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f7fb;
+            color: #172033;
+        }
+
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 250px;
+            height: 100vh;
+            background: #123b63;
+            color: white;
+            padding: 25px 18px;
+        }
+
+        .brand {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .brand img {
+            width: 65px;
+            height: 65px;
+            object-fit: contain;
+            margin-bottom: 10px;
+        }
+
+        .brand h2 {
+            font-size: 23px;
+        }
+
+        .brand p {
+            font-size: 11px;
+            opacity: 0.8;
+            margin-top: 5px;
+        }
+
+        .menu a {
+            display: block;
+            color: white;
+            text-decoration: none;
+            padding: 12px 15px;
+            margin-bottom: 6px;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
+        .menu a:hover,
+        .menu a.active {
+            background: #159447;
+        }
+
+        .logout {
+            position: absolute;
+            bottom: 25px;
+            left: 18px;
+            right: 18px;
+        }
+
+        .logout a {
+            display: block;
+            text-align: center;
+            background: #c0392b;
+            color: white;
+            text-decoration: none;
+            padding: 12px;
+            border-radius: 8px;
+        }
+
+        .main {
+            margin-left: 250px;
+            padding: 30px;
+        }
+
+        .header {
+            background: white;
+            padding: 22px 25px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        .header h1 {
+            color: #123b63;
+            margin-bottom: 8px;
+        }
+
+        .header p {
+            color: #667085;
+        }
+
+        .form-container {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            max-width: 900px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        .section-title {
+            color: #123b63;
+            font-size: 19px;
+            margin-bottom: 18px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #eaecf0;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 18px;
+        }
+
+        .full {
+            grid-column: 1 / -1;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            color: #344054;
+            font-size: 14px;
+            margin-bottom: 7px;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px 13px;
+            border: 1px solid #d0d5dd;
+            border-radius: 8px;
+            font-size: 15px;
+            outline: none;
+        }
+
+        input:focus {
+            border-color: #159447;
+        }
+
+        .hint {
+            margin-top: 6px;
+            font-size: 12px;
+            color: #667085;
+        }
+
+        .button-area {
+            margin-top: 25px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn {
+            padding: 13px 25px;
+            border: none;
+            border-radius: 8px;
+            background: #159447;
+            color: white;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background: #107b3a;
+        }
+
+        .message {
+            display: none;
+            padding: 13px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+
+        .success {
+            background: #dcfae6;
+            color: #067647;
+        }
+
+        @media (max-width: 700px) {
+
+            .sidebar {
+                position: relative;
+                width: 100%;
+                height: auto;
+            }
+
+            .main {
+                margin-left: 0;
+                padding: 15px;
+            }
+
+            .logout {
+                position: static;
+                margin-top: 20px;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .full {
+                grid-column: auto;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<aside class="sidebar">
+
+    <div class="brand">
+        <img src="../logosipras.png" alt="Logo SIPRAS">
+        <h2>SIPRAS</h2>
+        <p>Organisasi Pemohon</p>
+    </div>
+
+    <nav class="menu">
+        <a href="dashboard.html">Dashboard</a>
+        <a href="profil.html" class="active">Profil Organisasi</a>
+        <a href="sarpras.html">Data Sarpras</a>
+        <a href="pengajuan.html">Pengajuan</a>
+        <a href="jadwal.html">Jadwal</a>
+        <a href="riwayat.html">Riwayat</a>
+    </nav>
+
+    <div class="logout">
+        <a href="../login.html" onclick="logout()">Keluar</a>
+    </div>
+
+</aside>
+
+<main class="main">
+
+    <div class="header">
+        <h1>Profil Organisasi</h1>
+        <p>
+            Lengkapi data organisasi dan penanggung jawab pengajuan.
+        </p>
+    </div>
+
+    <div class="form-container">
+
+        <div id="successMessage" class="message success">
+            Profil berhasil disimpan.
+        </div>
+
+        <form id="profilForm">
+
+            <h2 class="section-title">
+                Data Organisasi
+            </h2>
+
+            <div class="form-grid">
+
+                <div class="form-group">
+                    <label for="namaOrganisasi">
+                        Nama Organisasi
+                    </label>
+
+                    <input
+                        type="text"
+                        id="namaOrganisasi"
+                        placeholder="Contoh: OSIS"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="username">
+                        Username
+                    </label>
+
+                    <input
+                        type="text"
+                        id="username"
+                        value="organisasi"
+                        readonly
+                    >
+
+                    <p class="hint">
+                        Username digunakan untuk masuk ke sistem.
+                    </p>
+                </div>
+
+            </div>
+
+            <h2 class="section-title" style="margin-top: 30px;">
+                Data Ketua / Pengaju
+            </h2>
+
+            <div class="form-grid">
+
+                <div class="form-group">
+                    <label for="namaKetua">
+                        Nama Ketua / Pengaju
+                    </label>
+
+                    <input
+                        type="text"
+                        id="namaKetua"
+                        placeholder="Nama lengkap"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="kelas">
+                        Kelas
+                    </label>
+
+                    <input
+                        type="text"
+                        id="kelas"
+                        placeholder="Contoh: XI IPA 1"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="noHp">
+                        Nomor HP
+                    </label>
+
+                    <input
+                        type="tel"
+                        id="noHp"
+                        placeholder="08xxxxxxxxxx"
+                        required
+                    >
+                </div>
+
+            </div>
+
+            <h2 class="section-title" style="margin-top: 30px;">
+                Data Guru Pembina
+            </h2>
+
+            <div class="form-grid">
+
+                <div class="form-group">
+                    <label for="guruPembina">
+                        Nama Guru Pembina
+                    </label>
+
+                    <input
+                        type="text"
+                        id="guruPembina"
+                        placeholder="Nama lengkap guru"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="kontakGuru">
+                        Kontak Guru Pembina
+                    </label>
+
+                    <input
+                        type="tel"
+                        id="kontakGuru"
+                        placeholder="08xxxxxxxxxx"
+                        required
+                    >
+                </div>
+
+            </div>
+
+            <div class="button-area">
+
+                <button
+                    type="submit"
+                    class="btn"
+                >
+                    Simpan Profil
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</main>
+
+<script>
+
+    // Proteksi halaman
+    const loggedIn =
+        sessionStorage.getItem("siprasLoggedIn");
+
+    const role =
+        sessionStorage.getItem("siprasRole");
+
+    if (loggedIn !== "true" || role !== "organisasi") {
+        window.location.href = "../login.html";
+    }
+
+
+    // Ambil profil yang tersimpan
+    const profilTersimpan =
+        JSON.parse(
+            localStorage.getItem("profilOrganisasi") || "null"
+        );
+
+
+    if (profilTersimpan) {
+
+        document.getElementById("namaOrganisasi").value =
+            profilTersimpan.namaOrganisasi || "";
+
+        document.getElementById("namaKetua").value =
+            profilTersimpan.namaKetua || "";
+
+        document.getElementById("kelas").value =
+            profilTersimpan.kelas || "";
+
+        document.getElementById("noHp").value =
+            profilTersimpan.noHp || "";
+
+        document.getElementById("guruPembina").value =
+            profilTersimpan.guruPembina || "";
+
+        document.getElementById("kontakGuru").value =
+            profilTersimpan.kontakGuru || "";
+
+    }
+
+
+    // Simpan profil
+    document.getElementById("profilForm")
+        .addEventListener("submit", function(event) {
+
+            event.preventDefault();
+
+            const profil = {
+
+                namaOrganisasi:
+                    document.getElementById("namaOrganisasi").value.trim(),
+
+                username:
+                    document.getElementById("username").value,
+
+                namaKetua:
+                    document.getElementById("namaKetua").value.trim(),
+
+                kelas:
+                    document.getElementById("kelas").value.trim(),
+
+                noHp:
+                    document.getElementById("noHp").value.trim(),
+
+                guruPembina:
+                    document.getElementById("guruPembina").value.trim(),
+
+                kontakGuru:
+                    document.getElementById("kontakGuru").value.trim()
+
+            };
+
+
+            localStorage.setItem(
+                "profilOrganisasi",
+                JSON.stringify(profil)
+            );
+
+
+            const message =
+                document.getElementById("successMessage");
+
+            message.style.display = "block";
+
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+
+        });
+
+
+    function logout() {
+
+        sessionStorage.removeItem("siprasLoggedIn");
+        sessionStorage.removeItem("siprasRole");
+
+    }
+
+</script>
+
+</body>
+</html>
