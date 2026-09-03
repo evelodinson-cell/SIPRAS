@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Riwayat Pengajuan - SIPRAS</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f4f7fb;
+      color: #1f2937;
+    }
+
+    .sidebar {
+      position: fixed;
+      left: 0;
+      top: 0;
+      width: 230px;
+      height: 100vh;
+      background: #0f2747;
+      color: white;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+
+    .logo {
+      text-align: center;
+      margin-bottom: 25px;
+    }
+
+    .logo img {
+      width: 65px;
+      height: 65px;
+      object-fit: contain;
+    }
+
+    .logo h2 {
+      margin: 8px 0;
+    }
+
+    .logo p {
+      font-size: 10px;
+      color: #cbd5e1;
+    }
+
+    .menu a {
+      display: block;
+      color: white;
+      text-decoration: none;
+      padding: 11px;
+      margin: 4px 0;
+      border-radius: 7px;
+    }
+
+    .menu a:hover,
+    .menu a.active {
+      background: #1d4ed8;
+    }
+
+    .logout {
+      background: #dc2626 !important;
+      text-align: center;
+      margin-top: 15px !important;
+    }
+
+    .content {
+      margin-left: 230px;
+      padding: 30px;
+    }
+
+    .header {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+    }
+
+    .header h1 {
+      margin: 0 0 5px;
+      color: #0f2747;
+    }
+
+    .header p {
+      margin: 0;
+      color: #64748b;
+    }
+
+    .table-box {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 750px;
+    }
+
+    th,
+    td {
+      padding: 12px;
+      border-bottom: 1px solid #e5e7eb;
+      text-align: left;
+    }
+
+    th {
+      background: #f1f5f9;
+      color: #0f2747;
+    }
+
+    .status {
+      display: inline-block;
+      padding: 6px 10px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: bold;
+    }
+
+    .menunggu {
+      background: #fef3c7;
+      color: #92400e;
+    }
+
+    .disetujui {
+      background: #dcfce7;
+      color: #166534;
+    }
+
+    .ditolak {
+      background: #fee2e2;
+      color: #991b1b;
+    }
+
+    .dibatalkan {
+      background: #e5e7eb;
+      color: #374151;
+    }
+
+    .kosong {
+      text-align: center;
+      color: #64748b;
+      padding: 30px;
+    }
+
+    @media (max-width: 768px) {
+      .sidebar {
+        position: relative;
+        width: 100%;
+        height: auto;
+      }
+
+      .content {
+        margin-left: 0;
+        padding: 15px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <aside class="sidebar">
+
+    <div class="logo">
+      <img src="../logosipras.png" alt="Logo SIPRAS">
+
+      <h2>SIPRAS</h2>
+
+      <p>
+        Sistem Informasi Sarana dan Prasarana Sekolah
+      </p>
+    </div>
+
+    <div class="menu">
+
+      <a href="dashboard.html">
+        Dashboard
+      </a>
+
+      <a href="profil.html">
+        Profil Organisasi
+      </a>
+
+      <a href="sarpras.html">
+        Data Sarpras
+      </a>
+
+      <a href="pengajuan.html">
+        Pengajuan
+      </a>
+
+      <a href="jadwal.html">
+        Jadwal
+      </a>
+
+      <a href="riwayat.html" class="active">
+        Riwayat
+      </a>
+
+      <a href="#" class="logout" onclick="logout()">
+        Keluar
+      </a>
+
+    </div>
+
+  </aside>
+
+
+  <main class="content">
+
+    <div class="header">
+
+      <h1>Riwayat Pengajuan</h1>
+
+      <p>
+        Daftar seluruh pengajuan sarana dan prasarana organisasi.
+      </p>
+
+    </div>
+
+
+    <div class="table-box">
+
+      <table>
+
+        <thead>
+
+          <tr>
+            <th>ID Pengajuan</th>
+            <th>Sarpras</th>
+            <th>Tanggal</th>
+            <th>Waktu</th>
+            <th>Keperluan</th>
+            <th>Status</th>
+            <th>Catatan Admin</th>
+          </tr>
+
+        </thead>
+
+        <tbody id="tabelRiwayat"></tbody>
+
+      </table>
+
+    </div>
+
+  </main>
+
+
+  <script>
+
+    // Proteksi halaman
+    if (
+      sessionStorage.getItem("siprasLoggedIn") !== "true" ||
+      sessionStorage.getItem("siprasRole") !== "organisasi"
+    ) {
+      window.location.href = "../login.html";
+    }
+
+
+    function tampilkanRiwayat() {
+
+      const data =
+        JSON.parse(
+          localStorage.getItem("dataPeminjaman") || "[]"
+        );
+
+      const profil =
+        JSON.parse(
+          localStorage.getItem("profilOrganisasi") || "{}"
+        );
+
+      const namaOrganisasi =
+        profil.namaOrganisasi || "";
+
+      const dataSaya =
+        data.filter(item => {
+
+          if (!namaOrganisasi) {
+            return false;
+          }
+
+          return item.organisasi === namaOrganisasi;
+
+        });
+
+
+      const tabel =
+        document.getElementById("tabelRiwayat");
+
+
+      tabel.innerHTML = "";
+
+
+      if (dataSaya.length === 0) {
+
+        tabel.innerHTML = `
+          <tr>
+            <td colspan="7" class="kosong">
+              Belum ada riwayat pengajuan.
+            </td>
+          </tr>
+        `;
+
+        return;
+
+      }
+
+
+      dataSaya
+        .slice()
+        .reverse()
+        .forEach(item => {
+
+          let kelasStatus = "";
+
+          if (item.status === "Menunggu Persetujuan") {
+            kelasStatus = "menunggu";
+          } else if (item.status === "Disetujui") {
+            kelasStatus = "disetujui";
+          } else if (item.status === "Ditolak") {
+            kelasStatus = "ditolak";
+          } else if (item.status === "Dibatalkan") {
+            kelasStatus = "dibatalkan";
+          }
+
+
+          const row = document.createElement("tr");
+
+          row.innerHTML = `
+
+            <td>${item.id || "-"}</td>
+
+            <td>${item.sarpras || "-"}</td>
+
+            <td>${item.tanggal || "-"}</td>
+
+            <td>
+              ${item.jamMulai || "-"}
+              -
+              ${item.jamSelesai || "-"}
+            </td>
+
+            <td>${item.keperluan || "-"}</td>
+
+            <td>
+              <span class="status ${kelasStatus}">
+                ${item.status || "-"}
+              </span>
+            </td>
+
+            <td>
+              ${item.catatanAdmin || "-"}
+            </td>
+
+          `;
+
+          tabel.appendChild(row);
+
+        });
+
+    }
+
+
+    function logout() {
+
+      sessionStorage.clear();
+
+      window.location.href = "../login.html";
+
+    }
+
+
+    tampilkanRiwayat();
+
+  </script>
+
+</body>
+</html>
