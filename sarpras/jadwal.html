@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Jadwal Sarpras - SIPRAS</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f4f7fb;
+      color: #1f2937;
+    }
+
+    .sidebar {
+      position: fixed;
+      left: 0;
+      top: 0;
+      width: 230px;
+      height: 100vh;
+      background: #0f2747;
+      color: white;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+
+    .logo {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .logo img {
+      width: 65px;
+      height: 65px;
+      object-fit: contain;
+    }
+
+    .logo h2 {
+      margin: 7px 0;
+    }
+
+    .logo p {
+      font-size: 10px;
+      color: #cbd5e1;
+      line-height: 1.4;
+    }
+
+    .menu a {
+      display: block;
+      color: white;
+      text-decoration: none;
+      padding: 11px;
+      margin: 4px 0;
+      border-radius: 7px;
+    }
+
+    .menu a:hover,
+    .menu a.active {
+      background: #1d4ed8;
+    }
+
+    .logout {
+      background: #dc2626 !important;
+      text-align: center;
+      margin-top: 15px !important;
+    }
+
+    .content {
+      margin-left: 230px;
+      padding: 30px;
+    }
+
+    .header {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+    }
+
+    .header h1 {
+      margin: 0 0 5px;
+      color: #0f2747;
+    }
+
+    .header p {
+      margin: 0;
+      color: #64748b;
+    }
+
+    .card {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      overflow-x: auto;
+    }
+
+    .filter {
+      margin-bottom: 20px;
+    }
+
+    .filter input {
+      padding: 10px;
+      width: 280px;
+      max-width: 100%;
+      border: 1px solid #cbd5e1;
+      border-radius: 6px;
+      box-sizing: border-box;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 950px;
+    }
+
+    th {
+      background: #0f2747;
+      color: white;
+      padding: 11px;
+      text-align: left;
+    }
+
+    td {
+      padding: 11px;
+      border-bottom: 1px solid #e5e7eb;
+      vertical-align: top;
+    }
+
+    .status {
+      display: inline-block;
+      padding: 6px 10px;
+      border-radius: 20px;
+      background: #dcfce7;
+      color: #166534;
+      font-size: 12px;
+      font-weight: bold;
+    }
+
+    .kosong {
+      text-align: center;
+      padding: 30px;
+      color: #64748b;
+    }
+
+    .info {
+      margin-bottom: 15px;
+      padding: 12px;
+      background: #eff6ff;
+      color: #1e40af;
+      border-radius: 7px;
+      font-size: 14px;
+    }
+
+    @media (max-width: 768px) {
+      .sidebar {
+        position: relative;
+        width: 100%;
+        height: auto;
+      }
+
+      .content {
+        margin-left: 0;
+        padding: 15px;
+      }
+
+      .filter input {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <aside class="sidebar">
+
+    <div class="logo">
+      <img src="../logosipras.png" alt="Logo SIPRAS">
+
+      <h2>SIPRAS</h2>
+
+      <p>
+        Sistem Informasi Sarana dan Prasarana Sekolah
+      </p>
+    </div>
+
+    <div class="menu">
+
+      <a href="dashboard.html">
+        Dashboard
+      </a>
+
+      <a href="pengajuan.html">
+        Pengajuan
+      </a>
+
+      <a href="jadwal.html" class="active">
+        Jadwal
+      </a>
+
+      <a href="data-sarpras.html">
+        Data Sarpras
+      </a>
+
+      <a href="organisasi.html">
+        Data Organisasi
+      </a>
+
+      <a href="riwayat.html">
+        Riwayat
+      </a>
+
+      <a href="laporan.html">
+        Laporan
+      </a>
+
+      <a href="#" class="logout" onclick="logout()">
+        Keluar
+      </a>
+
+    </div>
+
+  </aside>
+
+
+  <main class="content">
+
+    <div class="header">
+
+      <h1>
+        Jadwal Penggunaan Sarpras
+      </h1>
+
+      <p>
+        Daftar seluruh sarana dan prasarana yang telah dijadwalkan.
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <div class="info">
+        Jadwal di bawah hanya menampilkan pengajuan yang
+        <strong>telah disetujui</strong> oleh Penanggung Jawab Sarpras.
+      </div>
+
+
+      <div class="filter">
+
+        <input
+          type="text"
+          id="search"
+          placeholder="Cari organisasi atau sarpras..."
+          onkeyup="tampilkanJadwal()"
+        >
+
+      </div>
+
+
+      <table>
+
+        <thead>
+
+          <tr>
+            <th>No</th>
+            <th>ID Pengajuan</th>
+            <th>Organisasi</th>
+            <th>Sarpras</th>
+            <th>Tanggal</th>
+            <th>Jam</th>
+            <th>Keperluan</th>
+            <th>Status</th>
+          </tr>
+
+        </thead>
+
+        <tbody id="jadwalTable"></tbody>
+
+      </table>
+
+    </div>
+
+  </main>
+
+
+  <script>
+
+    // Proteksi halaman
+    if (
+      sessionStorage.getItem("siprasLoggedIn") !== "true" ||
+      sessionStorage.getItem("siprasRole") !== "sarpras"
+    ) {
+      window.location.href = "../login.html";
+    }
+
+
+    function ambilData() {
+
+      return JSON.parse(
+        localStorage.getItem("dataPeminjaman") || "[]"
+      );
+
+    }
+
+
+    function tampilkanJadwal() {
+
+      const data = ambilData();
+
+      const search =
+        document
+          .getElementById("search")
+          .value
+          .toLowerCase();
+
+
+      const jadwal = data
+        .filter(item => item.status === "Disetujui")
+        .filter(item => {
+
+          const organisasi =
+            (item.organisasi || "").toLowerCase();
+
+          const sarpras =
+            (item.sarpras || "").toLowerCase();
+
+          return (
+            organisasi.includes(search) ||
+            sarpras.includes(search)
+          );
+
+        });
+
+
+      // Urutkan berdasarkan tanggal dan jam
+      jadwal.sort((a, b) => {
+
+        const tanggalA =
+          new Date(
+            a.tanggal + "T" + a.jamMulai
+          );
+
+        const tanggalB =
+          new Date(
+            b.tanggal + "T" + b.jamMulai
+          );
+
+        return tanggalA - tanggalB;
+
+      });
+
+
+      const table =
+        document.getElementById("jadwalTable");
+
+
+      if (jadwal.length === 0) {
+
+        table.innerHTML = `
+          <tr>
+            <td colspan="8" class="kosong">
+              Belum ada jadwal penggunaan sarpras.
+            </td>
+          </tr>
+        `;
+
+        return;
+
+      }
+
+
+      table.innerHTML = "";
+
+
+      jadwal.forEach((item, index) => {
+
+        table.innerHTML += `
+
+          <tr>
+
+            <td>
+              ${index + 1}
+            </td>
+
+            <td>
+              ${item.id || "-"}
+            </td>
+
+            <td>
+              ${item.organisasi || "-"}
+              <br>
+              <small>
+                Pengaju: ${item.pengaju || "-"}
+              </small>
+            </td>
+
+            <td>
+              ${item.sarpras || "-"}
+            </td>
+
+            <td>
+              ${formatTanggal(item.tanggal)}
+            </td>
+
+            <td>
+              ${item.jamMulai || "-"}
+              -
+              ${item.jamSelesai || "-"}
+            </td>
+
+            <td>
+              ${item.keperluan || "-"}
+            </td>
+
+            <td>
+              <span class="status">
+                Disetujui
+              </span>
+            </td>
+
+          </tr>
+
+        `;
+
+      });
+
+    }
+
+
+    function formatTanggal(tanggal) {
