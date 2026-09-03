@@ -15,118 +15,128 @@
 
         body {
             font-family: Arial, sans-serif;
-            background: #f4f7fb;
             min-height: 100vh;
+            background: linear-gradient(135deg, #0f2747, #164e63);
             display: flex;
-            align-items: center;
             justify-content: center;
+            align-items: center;
             padding: 20px;
         }
 
-        .login-box {
+        .login-container {
             width: 100%;
             max-width: 430px;
             background: white;
-            padding: 40px;
             border-radius: 18px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            padding: 35px 30px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.25);
         }
 
         .logo {
-            width: 90px;
-            height: 90px;
-            object-fit: contain;
             display: block;
-            margin: 0 auto 20px;
+            width: 100px;
+            height: 100px;
+            object-fit: contain;
+            margin: 0 auto 15px;
         }
 
         h1 {
             text-align: center;
-            color: #123b63;
-            font-size: 30px;
-            margin-bottom: 8px;
+            color: #0f2747;
+            font-size: 32px;
+            margin-bottom: 5px;
         }
 
         .subtitle {
             text-align: center;
-            color: #667085;
+            color: #666;
             font-size: 14px;
             margin-bottom: 30px;
-            line-height: 1.5;
         }
 
         label {
             display: block;
             font-weight: bold;
-            color: #344054;
-            margin-bottom: 8px;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
+            color: #333;
+            margin-bottom: 7px;
         }
 
         input {
             width: 100%;
-            padding: 13px 15px;
-            border: 1px solid #d0d5dd;
+            padding: 13px;
+            border: 1px solid #ccc;
             border-radius: 9px;
             font-size: 16px;
+            margin-bottom: 18px;
             outline: none;
         }
 
         input:focus {
-            border-color: #159447;
+            border-color: #0f766e;
         }
 
-        .btn {
+        button {
             width: 100%;
             padding: 14px;
             border: none;
             border-radius: 9px;
-            background: #159447;
+            background: #0f766e;
             color: white;
             font-size: 17px;
             font-weight: bold;
             cursor: pointer;
         }
 
-        .btn:hover {
-            background: #107b3a;
-        }
-
-        .back {
-            display: block;
-            text-align: center;
-            margin-top: 20px;
-            color: #123b63;
-            text-decoration: none;
-            font-size: 14px;
+        button:hover {
+            background: #115e59;
         }
 
         .error {
             display: none;
-            background: #fee4e2;
-            color: #b42318;
+            background: #fee2e2;
+            color: #b91c1c;
             padding: 12px;
             border-radius: 8px;
             margin-bottom: 18px;
+            text-align: center;
             font-size: 14px;
         }
 
         .info {
             margin-top: 25px;
             padding: 15px;
-            background: #eef6ff;
-            border-radius: 9px;
-            color: #344054;
+            background: #f0fdf4;
+            border-radius: 10px;
             font-size: 13px;
-            line-height: 1.6;
+            color: #166534;
         }
 
-        @media (max-width: 600px) {
-            .login-box {
-                padding: 30px 20px;
+        .info strong {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .back {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #0f766e;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        @media (max-width: 480px) {
+            .login-container {
+                padding: 28px 22px;
+            }
+
+            h1 {
+                font-size: 28px;
+            }
+
+            .logo {
+                width: 85px;
+                height: 85px;
             }
         }
     </style>
@@ -134,96 +144,243 @@
 
 <body>
 
-<div class="login-box">
+    <div class="login-container">
 
-    <img src="logosipras.png" alt="Logo SIPRAS" class="logo">
+        <img src="logosipras.png" alt="Logo SIPRAS" class="logo">
 
-    <h1>SIPRAS</h1>
+        <h1>SIPRAS</h1>
 
-    <p class="subtitle">
-        Sistem Informasi Sarana dan Prasarana Sekolah
-    </p>
+        <p class="subtitle">
+            Sistem Informasi Sarana dan Prasarana Sekolah
+        </p>
 
-    <div id="errorMessage" class="error">
-        Username atau password salah.
-    </div>
+        <div id="errorMessage" class="error">
+            Username atau password salah.
+        </div>
 
-    <form id="loginForm">
+        <form id="loginForm">
 
-        <div class="form-group">
             <label for="username">Username</label>
+
             <input
                 type="text"
                 id="username"
                 placeholder="Masukkan username"
                 required
             >
-        </div>
 
-        <div class="form-group">
             <label for="password">Password</label>
+
             <input
                 type="password"
                 id="password"
                 placeholder="Masukkan password"
                 required
             >
+
+            <button type="submit">
+                Masuk
+            </button>
+
+        </form>
+
+        <div class="info">
+            <strong>Akun Demo</strong>
+
+            Organisasi:
+            <br>
+            osis / osis123
+            <br>
+            pramuka / pramuka123
+            <br>
+            pmr / pmr123
+            <br>
+            paskibra / paskibra123
+            <br>
+            rohis / rohis123
+            <br>
+            kir / kir123
+            <br>
+            englishclub / english123
+            <br>
+            olahraga / olahraga123
+
+            <br><br>
+
+            Penanggung Jawab Sarpras:
+            <br>
+            sarpras / sarpras123
         </div>
 
-        <button type="submit" class="btn">
-            Masuk
-        </button>
+        <a href="index.html" class="back">
+            ← Kembali ke halaman utama
+        </a>
 
-    </form>
-
-    <div class="info">
-        <strong>Demo Akun</strong><br>
-        Organisasi: organisasi / organisasi123<br>
-        Sarpras: sarpras / sarpras123
     </div>
 
-    <a href="index.html" class="back">
-        ← Kembali ke Beranda
-    </a>
+    <script>
 
-</div>
+        const loginForm =
+            document.getElementById("loginForm");
 
-<script>
-    const loginForm = document.getElementById("loginForm");
-    const errorMessage = document.getElementById("errorMessage");
+        const errorMessage =
+            document.getElementById("errorMessage");
 
-    loginForm.addEventListener("submit", function(event) {
-        event.preventDefault();
 
-        const username = document.getElementById("username").value.trim();
-        const password = document.getElementById("password").value;
+        // ============================
+        // AKUN ORGANISASI
+        // ============================
 
-        // Login Organisasi
-        if (username === "organisasi" && password === "organisasi123") {
+        const akunOrganisasi = {
 
-            sessionStorage.setItem("siprasLoggedIn", "true");
-            sessionStorage.setItem("siprasRole", "organisasi");
+            osis: {
+                password: "osis123",
+                nama: "OSIS"
+            },
 
-            window.location.href = "organisasi/dashboard.html";
+            pramuka: {
+                password: "pramuka123",
+                nama: "Pramuka"
+            },
 
-        }
+            pmr: {
+                password: "pmr123",
+                nama: "PMR"
+            },
 
-        // Login Penanggung Jawab Sarpras
-        else if (username === "sarpras" && password === "sarpras123") {
+            paskibra: {
+                password: "paskibra123",
+                nama: "Paskibra"
+            },
 
-            sessionStorage.setItem("siprasLoggedIn", "true");
-            sessionStorage.setItem("siprasRole", "sarpras");
+            rohis: {
+                password: "rohis123",
+                nama: "Rohis"
+            },
 
-            window.location.href = "sarpras/dashboard.html";
+            kir: {
+                password: "kir123",
+                nama: "KIR"
+            },
 
-        }
+            englishclub: {
+                password: "english123",
+                nama: "English Club"
+            },
 
-        // Login gagal
-        else {
-            errorMessage.style.display = "block";
-        }
-    });
-</script>
+            olahraga: {
+                password: "olahraga123",
+                nama: "Klub Olahraga"
+            }
+
+        };
+
+
+        // ============================
+        // PROSES LOGIN
+        // ============================
+
+        loginForm.addEventListener(
+            "submit",
+            function(event) {
+
+                event.preventDefault();
+
+
+                const username =
+                    document
+                    .getElementById("username")
+                    .value
+                    .trim()
+                    .toLowerCase();
+
+
+                const password =
+                    document
+                    .getElementById("password")
+                    .value;
+
+
+                // ============================
+                // LOGIN ORGANISASI
+                // ============================
+
+                if (
+                    akunOrganisasi[username] &&
+                    akunOrganisasi[username].password === password
+                ) {
+
+                    sessionStorage.setItem(
+                        "siprasLoggedIn",
+                        "true"
+                    );
+
+                    sessionStorage.setItem(
+                        "siprasRole",
+                        "organisasi"
+                    );
+
+                    sessionStorage.setItem(
+                        "siprasUsername",
+                        username
+                    );
+
+                    sessionStorage.setItem(
+                        "siprasNamaOrganisasi",
+                        akunOrganisasi[username].nama
+                    );
+
+
+                    window.location.href =
+                        "organisasi/dashboard.html";
+
+                    return;
+                }
+
+
+                // ============================
+                // LOGIN SARPRAS
+                // ============================
+
+                if (
+                    username === "sarpras" &&
+                    password === "sarpras123"
+                ) {
+
+                    sessionStorage.setItem(
+                        "siprasLoggedIn",
+                        "true"
+                    );
+
+                    sessionStorage.setItem(
+                        "siprasRole",
+                        "sarpras"
+                    );
+
+                    sessionStorage.setItem(
+                        "siprasUsername",
+                        "sarpras"
+                    );
+
+
+                    window.location.href =
+                        "sarpras/dashboard.html";
+
+                    return;
+                }
+
+
+                // ============================
+                // LOGIN GAGAL
+                // ============================
+
+                errorMessage.style.display =
+                    "block";
+
+            }
+        );
+
+    </script>
 
 </body>
 </html>
