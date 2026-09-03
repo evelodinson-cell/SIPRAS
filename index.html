@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIPRAS - Sistem Informasi Sarana dan Prasarana Sekolah</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f7fb;
+            color: #172033;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 900px;
+            background: white;
+            border-radius: 20px;
+            padding: 50px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        .logo {
+            width: 140px;
+            height: 140px;
+            object-fit: contain;
+            margin-bottom: 25px;
+        }
+
+        h1 {
+            font-size: 42px;
+            color: #123b63;
+            margin-bottom: 12px;
+        }
+
+        .subtitle {
+            font-size: 20px;
+            color: #526070;
+            margin-bottom: 35px;
+            line-height: 1.5;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 15px 40px;
+            background: #159447;
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .btn:hover {
+            background: #107b3a;
+        }
+
+        .description {
+            margin-top: 30px;
+            color: #667085;
+            font-size: 15px;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 35px 20px;
+            }
+
+            h1 {
+                font-size: 32px;
+            }
+
+            .subtitle {
+                font-size: 17px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <img src="logosipras.png" alt="Logo SIPRAS" class="logo">
+
+        <h1>SIPRAS</h1>
+
+        <p class="subtitle">
+            Sistem Informasi Sarana dan Prasarana Sekolah
+        </p>
+
+        <a href="login.html" class="btn">
+            Masuk ke Sistem
+        </a>
+
+        <p class="description">
+            Platform informasi dan pengajuan penggunaan sarana dan prasarana
+            sekolah secara terstruktur, mudah, dan efisien.
+        </p>
+
+    </div>
+
+</body>
+</html>
