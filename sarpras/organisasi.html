@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Data Organisasi - SIPRAS</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f4f7fb;
+      color: #1f2937;
+    }
+
+    .sidebar {
+      position: fixed;
+      left: 0;
+      top: 0;
+      width: 230px;
+      height: 100vh;
+      background: #0f2747;
+      color: white;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+
+    .logo {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .logo img {
+      width: 65px;
+      height: 65px;
+      object-fit: contain;
+    }
+
+    .logo h2 {
+      margin: 7px 0;
+    }
+
+    .logo p {
+      font-size: 10px;
+      color: #cbd5e1;
+      line-height: 1.4;
+    }
+
+    .menu a {
+      display: block;
+      color: white;
+      text-decoration: none;
+      padding: 11px;
+      margin: 4px 0;
+      border-radius: 7px;
+    }
+
+    .menu a:hover,
+    .menu a.active {
+      background: #1d4ed8;
+    }
+
+    .logout {
+      background: #dc2626 !important;
+      text-align: center;
+      margin-top: 15px !important;
+    }
+
+    .content {
+      margin-left: 230px;
+      padding: 30px;
+    }
+
+    .header {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+    }
+
+    .header h1 {
+      margin: 0 0 5px;
+      color: #0f2747;
+    }
+
+    .header p {
+      margin: 0;
+      color: #64748b;
+    }
+
+    .card {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      overflow-x: auto;
+    }
+
+    .toolbar {
+      margin-bottom: 20px;
+    }
+
+    .toolbar input {
+      width: 320px;
+      max-width: 100%;
+      padding: 10px;
+      border: 1px solid #cbd5e1;
+      border-radius: 6px;
+      box-sizing: border-box;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 1050px;
+    }
+
+    th {
+      background: #0f2747;
+      color: white;
+      padding: 11px;
+      text-align: left;
+    }
+
+    td {
+      padding: 11px;
+      border-bottom: 1px solid #e5e7eb;
+      vertical-align: top;
+    }
+
+    .nomor {
+      text-align: center;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 5px 9px;
+      border-radius: 20px;
+      background: #dcfce7;
+      color: #166534;
+      font-size: 12px;
+      font-weight: bold;
+    }
+
+    .info {
+      background: #eff6ff;
+      color: #1e40af;
+      padding: 12px;
+      border-radius: 7px;
+      margin-bottom: 18px;
+      font-size: 14px;
+    }
+
+    .kosong {
+      text-align: center;
+      padding: 30px;
+      color: #64748b;
+    }
+
+    @media (max-width: 768px) {
+      .sidebar {
+        position: relative;
+        width: 100%;
+        height: auto;
+      }
+
+      .content {
+        margin-left: 0;
+        padding: 15px;
+      }
+
+      .toolbar input {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <aside class="sidebar">
+
+    <div class="logo">
+      <img src="../logosipras.png" alt="Logo SIPRAS">
+
+      <h2>SIPRAS</h2>
+
+      <p>
+        Sistem Informasi Sarana dan Prasarana Sekolah
+      </p>
+    </div>
+
+    <div class="menu">
+
+      <a href="dashboard.html">
+        Dashboard
+      </a>
+
+      <a href="pengajuan.html">
+        Pengajuan
+      </a>
+
+      <a href="jadwal.html">
+        Jadwal
+      </a>
+
+      <a href="data-sarpras.html">
+        Data Sarpras
+      </a>
+
+      <a href="organisasi.html" class="active">
+        Data Organisasi
+      </a>
+
+      <a href="riwayat.html">
+        Riwayat
+      </a>
+
+      <a href="laporan.html">
+        Laporan
+      </a>
+
+      <a href="#" class="logout" onclick="logout()">
+        Keluar
+      </a>
+
+    </div>
+
+  </aside>
+
+
+  <main class="content">
+
+    <div class="header">
+
+      <h1>Data Organisasi</h1>
+
+      <p>
+        Daftar organisasi sekolah yang dapat mengajukan penggunaan sarpras.
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <div class="info">
+        Data organisasi digunakan sebagai informasi identitas
+        organisasi pemohon dan penanggung jawab kegiatan.
+      </div>
+
+
+      <div class="toolbar">
+
+        <input
+          type="text"
+          id="search"
+          placeholder="Cari nama organisasi, ketua, atau guru pembina..."
+          onkeyup="tampilkanData()"
+        >
+
+      </div>
+
+
+      <table>
+
+        <thead>
+
+          <tr>
+            <th>No</th>
+            <th>Organisasi</th>
+            <th>Username</th>
+            <th>Ketua/Pengaju</th>
+            <th>Kelas</th>
+            <th>No. HP</th>
+            <th>Guru Pembina</th>
+            <th>Kontak Guru</th>
+            <th>Status</th>
+          </tr>
+
+        </thead>
+
+        <tbody id="organisasiTable"></tbody>
+
+      </table>
+
+    </div>
+
+  </main>
+
+
+  <script>
+
+    // Proteksi halaman
+    if (
+      sessionStorage.getItem("siprasLoggedIn") !== "true" ||
+      sessionStorage.getItem("siprasRole") !== "sarpras"
+    ) {
+      window.location.href = "../login.html";
+    }
+
+
+    /*
+      Data demo organisasi.
+
+      Untuk sementara data dibuat langsung di halaman.
+      Nanti akan kita sambungkan dengan data organisasi
+      yang tersimpan di localStorage.
+    */
+
+    const dataOrganisasi = [
+
+      {
+        nama: "OSIS",
+        username: "osis",
+        ketua: "Ketua OSIS",
+        kelas: "XI",
+        noHp: "081234567890",
+        guru: "Bapak/Ibu Pembina OSIS",
+        kontakGuru: "081234567891"
+      },
+
+      {
+        nama: "Pramuka",
+        username: "pramuka",
+        ketua: "Ketua Pramuka",
+        kelas: "XI",
+        noHp: "081234567892",
+        guru: "Bapak/Ibu Pembina Pramuka",
+        kontakGuru: "081234567893"
+      },
+
+      {
+        nama: "PMR",
+        username: "pmr",
+        ketua: "Ketua PMR",
+        kelas: "XI",
+        noHp: "081234567894",
+        guru: "Bapak/Ibu Pembina PMR",
+        kontakGuru: "081234567895"
+      },
+
+      {
+        nama: "Paskibra",
+        username: "paskibra",
+        ketua: "Ketua Paskibra",
+        kelas: "XI",
+        noHp: "081234567896",
+        guru: "Bapak/Ibu Pembina Paskibra",
+        kontakGuru: "081234567897"
+      },
+
+      {
+        nama: "Rohis",
+        username: "rohis",
+        ketua: "Ketua Rohis",
+        kelas: "XI",
+        noHp: "081234567898",
+        guru: "Bapak/Ibu Pembina Rohis",
+        kontakGuru: "081234567899"
+      },
+
+      {
+        nama: "KIR",
+        username: "kir",
+        ketua: "Ketua KIR",
+        kelas: "XI",
+        noHp: "081234567800",
+        guru: "Bapak/Ibu Pembina KIR",
+        kontakGuru: "081234567801"
+      },
+
+      {
+        nama: "English Club",
+        username: "englishclub",
+        ketua: "Ketua English Club",
+        kelas: "XI",
+        noHp: "081234567802",
+        guru: "Bapak/Ibu Pembina English Club",
+        kontakGuru: "081234567803"
+      },
+
+      {
+        nama: "Klub Olahraga",
+        username: "olahraga",
+        ketua: "Ketua Klub Olahraga",
+        kelas: "XI",
+        noHp: "081234567804",
+        guru: "Bapak/Ibu Pembina Klub Olahraga",
+        kontakGuru: "081234567805"
+      }
+
+    ];
+
+
+    function tampilkanData() {
+
+      const search =
+        document
+          .getElementById("search")
+          .value
+          .toLowerCase();
+
+
+      const hasil =
+        dataOrganisasi.filter(item => {
+
+          return (
+            item.nama.toLowerCase().includes(search) ||
+            item.username.toLowerCase().includes(search) ||
+            item.ketua.toLowerCase().includes(search) ||
+            item.guru.toLowerCase().includes(search)
+          );
+
+        });
+
+
+      const table =
+        document.getElementById("organisasiTable");
+
+
+      if (hasil.length === 0) {
+
+        table.innerHTML = `
+          <tr>
+            <td colspan="9" class="kosong">
+              Data organisasi tidak ditemukan.
+            </td>
+          </tr>
+        `;
+
+        return;
+      }
+
+
+      table.innerHTML = "";
+
+
+      hasil.forEach((item, index) => {
+
+        table.innerHTML += `
+
+          <tr>
+
+            <td class="nomor">
+              ${index + 1}
+            </td>
+
+            <td>
+              <strong>${item.nama}</strong>
+            </td>
+
+            <td>
+              ${item.username}
+            </td>
+
+            <td>
+              ${item.ketua}
+            </td>
+
+            <td>
+              ${item.kelas}
+            </td>
+
+            <td>
+              ${item.noHp}
+            </td>
+
+            <td>
+              ${item.guru}
+            </td>
+
+            <td>
+              ${item.kontakGuru}
+            </td>
+
+            <td>
+              <span class="badge">
+                Aktif
+              </span>
+            </td>
+
+          </tr>
+
+        `;
+
+      });
+
+    }
+
+
+    function logout() {
+
+      sessionStorage.clear();
+
+      window.location.href =
+        "../login.html";
+
+    }
+
+
+    tampilkanData();
+
+  </script>
+
+</body>
+</html>
