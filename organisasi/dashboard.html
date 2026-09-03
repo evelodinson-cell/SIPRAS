@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Dashboard Organisasi - SIPRAS</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f7fb;
+            color: #172033;
+        }
+
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 250px;
+            height: 100vh;
+            background: #123b63;
+            color: white;
+            padding: 25px 18px;
+        }
+
+        .brand {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .brand img {
+            width: 65px;
+            height: 65px;
+            object-fit: contain;
+            margin-bottom: 10px;
+        }
+
+        .brand h2 {
+            font-size: 23px;
+        }
+
+        .brand p {
+            font-size: 11px;
+            opacity: 0.8;
+            margin-top: 5px;
+        }
+
+        .menu a {
+            display: block;
+            color: white;
+            text-decoration: none;
+            padding: 13px 15px;
+            margin-bottom: 7px;
+            border-radius: 8px;
+            font-size: 15px;
+        }
+
+        .menu a:hover,
+        .menu a.active {
+            background: #159447;
+        }
+
+        .logout {
+            position: absolute;
+            bottom: 25px;
+            left: 18px;
+            right: 18px;
+        }
+
+        .logout a {
+            display: block;
+            text-align: center;
+            background: #c0392b;
+            color: white;
+            text-decoration: none;
+            padding: 12px;
+            border-radius: 8px;
+        }
+
+        .main {
+            margin-left: 250px;
+            padding: 30px;
+        }
+
+        .topbar {
+            background: white;
+            padding: 20px 25px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        .topbar h1 {
+            color: #123b63;
+            font-size: 28px;
+        }
+
+        .topbar p {
+            color: #667085;
+            margin-top: 7px;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+
+        .card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        .card h3 {
+            color: #667085;
+            font-size: 15px;
+            margin-bottom: 12px;
+        }
+
+        .card .number {
+            font-size: 32px;
+            font-weight: bold;
+            color: #123b63;
+        }
+
+        .content {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        .content h2 {
+            color: #123b63;
+            margin-bottom: 15px;
+        }
+
+        .welcome {
+            background: #eef8f2;
+            border-left: 5px solid #159447;
+            padding: 18px;
+            border-radius: 8px;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 900px) {
+            .sidebar {
+                width: 210px;
+            }
+
+            .main {
+                margin-left: 210px;
+            }
+
+            .cards {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 650px) {
+            .sidebar {
+                position: relative;
+                width: 100%;
+                height: auto;
+            }
+
+            .logout {
+                position: static;
+                margin-top: 20px;
+            }
+
+            .main {
+                margin-left: 0;
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <aside class="sidebar">
+
+        <div class="brand">
+            <img src="../logosipras.png" alt="Logo SIPRAS">
+            <h2>SIPRAS</h2>
+            <p>Organisasi Pemohon</p>
+        </div>
+
+        <nav class="menu">
+            <a href="dashboard.html" class="active">Dashboard</a>
+            <a href="profil.html">Profil Organisasi</a>
+            <a href="sarpras.html">Data Sarpras</a>
+            <a href="pengajuan.html">Pengajuan</a>
+            <a href="jadwal.html">Jadwal</a>
+            <a href="riwayat.html">Riwayat</a>
+        </nav>
+
+        <div class="logout">
+            <a href="../login.html" onclick="logout()">Keluar</a>
+        </div>
+
+    </aside>
+
+    <main class="main">
+
+        <div class="topbar">
+            <h1>Dashboard Organisasi</h1>
+            <p>Selamat datang di Sistem Informasi Sarana dan Prasarana Sekolah.</p>
+        </div>
+
+        <div class="cards">
+
+            <div class="card">
+                <h3>Pengajuan Menunggu</h3>
+                <div class="number">0</div>
+            </div>
+
+            <div class="card">
+                <h3>Pengajuan Disetujui</h3>
+                <div class="number">0</div>
+            </div>
+
+            <div class="card">
+                <h3>Total Pengajuan</h3>
+                <div class="number">0</div>
+            </div>
+
+        </div>
+
+        <div class="content">
+
+            <h2>Informasi</h2>
+
+            <div class="welcome">
+                <strong>Selamat datang, Organisasi Pemohon!</strong><br>
+                Gunakan menu di sebelah kiri untuk melihat sarana dan prasarana,
+                membuat pengajuan penggunaan, melihat jadwal, serta memantau
+                riwayat pengajuan organisasi.
+            </div>
+
+        </div>
+
+    </main>
+
+    <script>
+        // Proteksi halaman
+        const loggedIn = sessionStorage.getItem("siprasLoggedIn");
+        const role = sessionStorage.getItem("siprasRole");
+
+        if (loggedIn !== "true" || role !== "organisasi") {
+            window.location.href = "../login.html";
+        }
+
+        function logout() {
+            sessionStorage.removeItem("siprasLoggedIn");
+            sessionStorage.removeItem("siprasRole");
+        }
+    </script>
+
+</body>
+</html>
