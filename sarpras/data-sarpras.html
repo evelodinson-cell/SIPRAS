@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Data Sarpras - SIPRAS</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f7fb;
+            color: #172033;
+        }
+
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 250px;
+            height: 100vh;
+            background: #123b63;
+            color: white;
+            padding: 25px 18px;
+        }
+
+        .brand {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .brand img {
+            width: 65px;
+            height: 65px;
+            object-fit: contain;
+            margin-bottom: 10px;
+        }
+
+        .brand h2 {
+            font-size: 23px;
+        }
+
+        .brand p {
+            font-size: 11px;
+            opacity: 0.8;
+            margin-top: 5px;
+        }
+
+        .menu a {
+            display: block;
+            color: white;
+            text-decoration: none;
+            padding: 12px 15px;
+            margin-bottom: 6px;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
+        .menu a:hover,
+        .menu a.active {
+            background: #159447;
+        }
+
+        .logout {
+            position: absolute;
+            bottom: 25px;
+            left: 18px;
+            right: 18px;
+        }
+
+        .logout a {
+            display: block;
+            text-align: center;
+            background: #c0392b;
+            color: white;
+            text-decoration: none;
+            padding: 12px;
+            border-radius: 8px;
+        }
+
+        .main {
+            margin-left: 250px;
+            padding: 30px;
+        }
+
+        .header {
+            background: white;
+            padding: 22px 25px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        .header h1 {
+            color: #123b63;
+            margin-bottom: 8px;
+        }
+
+        .header p {
+            color: #667085;
+        }
+
+        .toolbar {
+            background: white;
+            padding: 18px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        .search {
+            flex: 1;
+            min-width: 220px;
+            padding: 12px;
+            border: 1px solid #d0d5dd;
+            border-radius: 8px;
+            font-size: 15px;
+        }
+
+        select {
+            padding: 12px;
+            border: 1px solid #d0d5dd;
+            border-radius: 8px;
+            font-size: 15px;
+            background: white;
+        }
+
+        .btn {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            background: #159447;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .table-container {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            overflow-x: auto;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 850px;
+        }
+
+        th {
+            background: #123b63;
+            color: white;
+            padding: 14px;
+            text-align: left;
+            font-size: 14px;
+        }
+
+        td {
+            padding: 13px;
+            border-bottom: 1px solid #eaecf0;
+            font-size: 14px;
+        }
+
+        tr:hover {
+            background: #f8fafc;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 6px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .available {
+            background: #dcfae6;
+            color: #067647;
+        }
+
+        .borrowed {
+            background: #fef0c7;
+            color: #b54708;
+        }
+
+        .maintenance {
+            background: #fee4e2;
+            color: #b42318;
+        }
+
+        .notavailable {
+            background: #eaecf0;
+            color: #344054;
+        }
+
+        @media (max-width: 700px) {
+            .sidebar {
+                position: relative;
+                width: 100%;
+                height: auto;
+            }
+
+            .main {
+                margin-left: 0;
+                padding: 15px;
+            }
+
+            .logout {
+                position: static;
+                margin-top: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<aside class="sidebar">
+
+    <div class="brand">
+        <img src="../logosipras.png" alt="Logo SIPRAS">
+        <h2>SIPRAS</h2>
+        <p>Penanggung Jawab Sarpras</p>
+    </div>
+
+    <nav class="menu">
+        <a href="dashboard.html">Dashboard</a>
+        <a href="pengajuan.html">Pengajuan</a>
+        <a href="jadwal.html">Jadwal</a>
+        <a href="data-sarpras.html" class="active">Data Sarpras</a>
+        <a href="organisasi.html">Data Organisasi</a>
+        <a href="riwayat.html">Riwayat</a>
+        <a href="laporan.html">Laporan</a>
+    </nav>
+
+    <div class="logout">
+        <a href="../login.html" onclick="logout()">Keluar</a>
+    </div>
+
+</aside>
+
+<main class="main">
+
+    <div class="header">
+        <h1>Data Sarana dan Prasarana</h1>
+        <p>Kelola data sarana dan prasarana yang tersedia di sekolah.</p>
+    </div>
+
+    <div class="toolbar">
+
+        <input
+            type="text"
+            class="search"
+            id="search"
+            placeholder="Cari sarana atau prasarana..."
+            onkeyup="filterData()"
+        >
+
+        <select id="category" onchange="filterData()">
+            <option value="semua">Semua Kategori</option>
+            <option value="prasarana">Prasarana</option>
+            <option value="sarana">Sarana</option>
+        </select>
+
+        <button class="btn" onclick="alert('Fitur tambah sarpras akan dibuat pada tahap berikutnya.')">
+            + Tambah Sarpras
+        </button>
+
+    </div>
+
+    <div class="table-container">
+
+        <table id="sarprasTable">
+
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Nama Sarpras</th>
+                    <th>Kategori</th>
+                    <th>Kapasitas / Jumlah</th>
+                    <th>Kondisi</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                <tr data-category="prasarana">
+                    <td>1</td>
+                    <td>Aula Sekolah</td>
+                    <td>Prasarana</td>
+                    <td>200 orang</td>
+                    <td>Baik</td>
+                    <td><span class="badge available">Tersedia</span></td>
+                </tr>
+
+                <tr data-category="prasarana">
+                    <td>2</td>
+                    <td>Ruang Serbaguna</td>
+                    <td>Prasarana</td>
+                    <td>100 orang</td>
+                    <td>Baik</td>
+                    <td><span class="badge available">Tersedia</span></td>
+                </tr>
+
+                <tr data-category="prasarana">
+                    <td>3</td>
+                    <td>Lapangan Sekolah</td>
+                    <td>Prasarana</td>
+                    <td>300 orang</td>
+                    <td>Baik</td>
+                    <td><span class="badge available">Tersedia</span></td>
+                </tr>
+
+                <tr data-category="prasarana">
+                    <td>4</td>
+                    <td>Lapangan Basket</td>
+                    <td>Prasarana</td>
+                    <td>30 orang</td>
+                    <td>Baik</td>
+                    <td><span class="badge available">Tersedia</span></td>
+                </tr>
+
+                <tr data-category="prasarana">
+                    <td>5</td>
+                    <td>Lapangan Futsal</td>
+                    <td>Prasarana</td>
+                    <td>30 orang</td>
+                    <td>Baik</td>
+                    <td><span class="badge available">Tersedia</span></td>
+                </tr>
+
+                <tr data-category="prasarana">
+                    <td>6</td>
+                    <td>Ruang Kelas</td>
+                    <td>Prasarana</td>
+                    <td>36 orang</td>
+                    <td>Baik</td>
+                    <td><span class="badge available">Tersedia</span></td>
+                </tr>
+
+                <tr data-category="prasarana">
+                    <td>7</td>
+                    <td>Lab. Komputer</td>
+                    <td>Prasarana</td>
+                    <td>40 orang</td>
+                    <td>Baik</td>
+                    <td><span class="badge available">Tersedia</span></td>
+                </tr>
+
+                <tr data-category="prasarana">
+                    <td>8</td>
+                    <td>Lab. IPA</td>
+                    <td>Prasarana</td>
+                    <td>36 orang</td>
+                    <td>Baik</td>
+                    <td><span class="badge available">Tersedia</span></td>
+                </tr>
+
+                <tr data-category="prasarana">
+                    <td>9</td>
+                    <td>Perpustakaan</td>
+                    <td>Prasarana</td>
+                    <td>50 orang</td>
+                    <td>Baik</td>
+                    <td><span class="badge available">Tersedia</span></td>
+                </tr>
+
+                <tr data-category="sarana">
+                    <td>10</td>
+                    <td>Proyektor</td>
+                    <td>Sarana</td>
+                    <td>3 unit</td>
+                    <td>Baik</td>
+                    <td><span class="badge available">Tersedia</span></td>
+                </tr>
+
+                <tr data-category="sarana">
+                    <td>11</td>
+                    <td>Sound System</td>
+                    <td>Sarana</td>
+                    <td>2 unit</td>
+                    <td>Baik</td>
+                    <td><span class="badge available">Tersedia</span></td>
+                </tr>
+
+                <tr data-category="sarana">
+                    <td>12</td>
+                    <td>Microphone Wireless</td>
+                    <td>Sarana</td>
+                    <td>4 unit</td>
+                    <td>Baik</td>
+                    <td><span class="badge available">Tersedia</span></td>
+                </tr>
+
+                <tr data-category="s
