@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Login - SIPRAS</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f7fb;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .login-box {
+            width: 100%;
+            max-width: 430px;
+            background: white;
+            padding: 40px;
+            border-radius: 18px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        .logo {
+            width: 90px;
+            height: 90px;
+            object-fit: contain;
+            display: block;
+            margin: 0 auto 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #123b63;
+            font-size: 30px;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #667085;
+            font-size: 14px;
+            margin-bottom: 30px;
+            line-height: 1.5;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            color: #344054;
+            margin-bottom: 8px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        input {
+            width: 100%;
+            padding: 13px 15px;
+            border: 1px solid #d0d5dd;
+            border-radius: 9px;
+            font-size: 16px;
+            outline: none;
+        }
+
+        input:focus {
+            border-color: #159447;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 9px;
+            background: #159447;
+            color: white;
+            font-size: 17px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background: #107b3a;
+        }
+
+        .back {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #123b63;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .error {
+            display: none;
+            background: #fee4e2;
+            color: #b42318;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 18px;
+            font-size: 14px;
+        }
+
+        .info {
+            margin-top: 25px;
+            padding: 15px;
+            background: #eef6ff;
+            border-radius: 9px;
+            color: #344054;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 600px) {
+            .login-box {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="login-box">
+
+    <img src="logosipras.png" alt="Logo SIPRAS" class="logo">
+
+    <h1>SIPRAS</h1>
+
+    <p class="subtitle">
+        Sistem Informasi Sarana dan Prasarana Sekolah
+    </p>
+
+    <div id="errorMessage" class="error">
+        Username atau password salah.
+    </div>
+
+    <form id="loginForm">
+
+        <div class="form-group">
+            <label for="username">Username</label>
+            <input
+                type="text"
+                id="username"
+                placeholder="Masukkan username"
+                required
+            >
+        </div>
+
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input
+                type="password"
+                id="password"
+                placeholder="Masukkan password"
+                required
+            >
+        </div>
+
+        <button type="submit" class="btn">
+            Masuk
+        </button>
+
+    </form>
+
+    <div class="info">
+        <strong>Demo Akun</strong><br>
+        Organisasi: organisasi / organisasi123<br>
+        Sarpras: sarpras / sarpras123
+    </div>
+
+    <a href="index.html" class="back">
+        ← Kembali ke Beranda
+    </a>
+
+</div>
+
+<script>
+    const loginForm = document.getElementById("loginForm");
+    const errorMessage = document.getElementById("errorMessage");
+
+    loginForm.addEventListener("submit", function(event) {
+        event.preventDefault();
+
+        const username = document.getElementById("username").value.trim();
+        const password = document.getElementById("password").value;
+
+        // Login Organisasi
+        if (username === "organisasi" && password === "organisasi123") {
+
+            sessionStorage.setItem("siprasLoggedIn", "true");
+            sessionStorage.setItem("siprasRole", "organisasi");
+
+            window.location.href = "organisasi/dashboard.html";
+
+        }
+
+        // Login Penanggung Jawab Sarpras
+        else if (username === "sarpras" && password === "sarpras123") {
+
+            sessionStorage.setItem("siprasLoggedIn", "true");
+            sessionStorage.setItem("siprasRole", "sarpras");
+
+            window.location.href = "sarpras/dashboard.html";
+
+        }
+
+        // Login gagal
+        else {
+            errorMessage.style.display = "block";
+        }
+    });
+</script>
+
+</body>
+</html>
