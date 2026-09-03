@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Laporan - SIPRAS</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f4f7fb;
+      color: #1f2937;
+    }
+
+    .sidebar {
+      position: fixed;
+      left: 0;
+      top: 0;
+      width: 230px;
+      height: 100vh;
+      background: #0f2747;
+      color: white;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+
+    .logo {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .logo img {
+      width: 65px;
+      height: 65px;
+      object-fit: contain;
+    }
+
+    .logo h2 {
+      margin: 7px 0;
+    }
+
+    .logo p {
+      font-size: 10px;
+      color: #cbd5e1;
+      line-height: 1.4;
+    }
+
+    .menu a {
+      display: block;
+      color: white;
+      text-decoration: none;
+      padding: 11px;
+      margin: 4px 0;
+      border-radius: 7px;
+    }
+
+    .menu a:hover,
+    .menu a.active {
+      background: #1d4ed8;
+    }
+
+    .logout {
+      background: #dc2626 !important;
+      text-align: center;
+      margin-top: 15px !important;
+    }
+
+    .content {
+      margin-left: 230px;
+      padding: 30px;
+    }
+
+    .header {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+    }
+
+    .header h1 {
+      margin: 0 0 5px;
+      color: #0f2747;
+    }
+
+    .header p {
+      margin: 0;
+      color: #64748b;
+    }
+
+    .toolbar {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+
+    .toolbar label {
+      font-weight: bold;
+      margin-right: 8px;
+    }
+
+    .toolbar select,
+    .toolbar input {
+      padding: 9px;
+      border: 1px solid #cbd5e1;
+      border-radius: 6px;
+      margin-right: 10px;
+      margin-bottom: 8px;
+    }
+
+    .btn-print {
+      background: #0f2747;
+      color: white;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .btn-print:hover {
+      background: #1d4ed8;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+
+    .card {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+
+    .card h3 {
+      margin: 0 0 10px;
+      font-size: 14px;
+      color: #64748b;
+    }
+
+    .card .angka {
+      font-size: 28px;
+      font-weight: bold;
+      color: #0f2747;
+    }
+
+    .section {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      overflow-x: auto;
+    }
+
+    .section h2 {
+      margin-top: 0;
+      color: #0f2747;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 600px;
+    }
+
+    th {
+      background: #0f2747;
+      color: white;
+      padding: 11px;
+      text-align: left;
+    }
+
+    td {
+      padding: 11px;
+      border-bottom: 1px solid #e5e7eb;
+    }
+
+    .empty {
+      text-align: center;
+      padding: 25px;
+      color: #64748b;
+    }
+
+    .print-header {
+      display: none;
+    }
+
+    @media (max-width: 1000px) {
+      .cards {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .sidebar {
+        position: relative;
+        width: 100%;
+        height: auto;
+      }
+
+      .content {
+        margin-left: 0;
+        padding: 15px;
+      }
+
+      .cards {
+        grid-template-columns: 1fr;
+      }
+
+      .toolbar select,
+      .toolbar input {
+        width: 100%;
+        box-sizing: border-box;
+      }
+
+      .btn-print {
+        width: 100%;
+      }
+    }
+
+    @media print {
+
+      body {
+        background: white;
+      }
+
+      .sidebar,
+      .toolbar {
+        display: none;
+      }
+
+      .content {
+        margin: 0;
+        padding: 0;
+      }
+
+      .header {
+        box-shadow: none;
+        border: none;
+      }
+
+      .print-header {
+        display: block;
+        text-align: center;
+        margin-bottom: 20px;
+      }
+
+      .cards {
+        grid-template-columns: repeat(5, 1fr);
+      }
+
+      .card,
+      .section,
+      .header {
+        box-shadow: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <aside class="sidebar">
+
+    <div class="logo">
+
+      <img
+        src="../logosipras.png"
+        alt="Logo SIPRAS"
+      >
+
+      <h2>SIPRAS</h2>
+
+      <p>
+        Sistem Informasi Sarana dan Prasarana Sekolah
+      </p>
+
+    </div>
+
+
+    <div class="menu">
+
+      <a href="dashboard.html">
+        Dashboard
+      </a>
+
+      <a href="pengajuan.html">
+        Pengajuan
+      </a>
+
+      <a href="jadwal.html">
+        Jadwal
+      </a>
+
+      <a href="data-sarpras.html">
+        Data Sarpras
+      </a>
+
+      <a href="organisasi.html">
+        Data Organisasi
+      </a>
+
+      <a href="riwayat.html">
+        Riwayat
+      </a>
+
+      <a href="laporan.html" class="active">
+        Laporan
+      </a>
+
+      <a href="#" class="logout" onclick="logout()">
+        Keluar
+      </a>
+
+    </div>
+
+  </aside>
+
+
+  <main class="content">
+
+    <div class="print-header">
+
+      <h1>SIPRAS</h1>
+
+      <h2>
+        Sistem Informasi Sarana dan Prasarana Sekolah
+      </h2>
+
+      <p>
+        Laporan Penggunaan Sarana dan Prasarana
+      </p>
+
+    </div>
+
+
+    <div class="header">
+
+      <h1>
+        Laporan
+      </h1>
+
+      <p>
+        Rekapitulasi pengajuan dan penggunaan sarana dan prasarana sekolah.
+      </p>
+
+    </div>
+
+
+    <div class="toolbar">
+
+      <label for="filterStatus">
+        Status:
+      </label>
+
+      <select
+        id="filterStatus"
+        onchange="tampilkanLaporan()"
+      >
+
+        <option value="Semua">
+          Semua Status
+        </option>
+
+        <option value="Menunggu Persetujuan">
+          Menunggu Persetujuan
+        </option>
+
+        <option value="Disetujui">
+          Disetujui
+        </option>
+
+        <option value="Ditolak">
+          Ditolak
+        </option>
+
+        <option value="Dibatalkan">
+          Dibatalkan
+        </option>
+
+      </select>
+
+
+      <label for="tanggalMulai">
+        Dari:
+      </label>
+
+      <input
+        type="date"
+        id="tanggalMulai"
+        onchange="tampilkanLaporan()"
+      >
+
+
+      <label for="tanggalSelesai">
+        Sampai:
+      </label>
+
+      <input
+        type="date"
+        id="tanggalSelesai"
+        onchange="tampilkanLaporan()"
+      >
+
+
+      <button
+        class="btn-print"
+        onclick="window.print()"
+      >
+        Cetak Laporan
+      </button>
+
+    </div>
+
+
+    <!-- Statistik -->
+
+    <div class="cards">
+
+      <div class="card">
+
+        <h3>
+          Total Pengajuan
+        </h3>
+
+        <div
+          class="angka"
+          id="total"
+        >
+          0
+        </div>
+
+      </div>
+
+
+      <div class="card">
+
+        <h3>
+          Disetujui
+        </h3>
+
+        <div
+          class="angka"
+          id="disetujui"
+        >
+          0
+        </div>
+
+      </div>
+
+
+      <div class="card">
+
+        <h3>
+          Menunggu
+        </h3>
+
+        <div
+          class="angka"
+          id="menunggu"
+        >
+          0
+        </div>
+
+      </div>
+
+
+      <div class="card">
+
+        <h3>
+          Ditolak
+        </h3>
+
+        <div
+          class="angka"
+          id="ditolak"
+        >
+          0
+        </div>
+
+      </div>
+
+
+      <div class="card">
+
+        <h3>
+          Dibatalkan
+        </h3>
+
+        <div
+          class="angka"
+          id="dibatalkan"
+        >
+          0
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- Rekap Sarpras -->
+
+    <div class="section">
+
+      <h2>
+        Rekap Penggunaan Sarpras
+      </h2>
+
+      <table>
+
+        <thead>
+
+          <tr>
+            <th>No</th>
+            <th>Sarpras</th>
+            <th>Jumlah Penggunaan</th>
+          </tr>
+
+        </thead>
+
+        <tbody id="sarprasTable"></tbody>
+
+      </table>
+
+    </div>
+
+
+    <!-- Rekap Organisasi -->
+
+    <div class="section">
+
+      <h2>
+        Rekap Pengajuan Organisasi
+      </h2>
+
+      <table>
+
+        <thead>
+
+          <tr>
+            <th>No</th>
+            <th>Organisasi</th>
+            <th>Jumlah Pengajuan</th>
+          </tr>
+
+        </thead>
+
+        <tbody id="organisasiTable"></tbody>
+
+      </table>
+
+    </div>
+
+  </main>
+
+
+  <script>
+
+    // Proteksi halaman
+    if (
+      sessionStorage.getItem("siprasLoggedIn") !== "true" ||
+      sessionStorage.getItem("siprasRole") !== "sarpras"
+    ) {
+      window.location.href = "../login.html";
+    }
+
+
+    function ambilData() {
+
+      return JSON.parse(
+        localStorage.getItem("dataPeminjaman") || "[]"
+      );
+
+    }
+
+
+    function tampilkanLaporan() {
+
+      const data = ambilData();
+
+
+      const filterStatus =
+        document.getElementById("filterStatus").value;
+
+
+      const tanggalMulai =
+        document.getElementById("tanggalMulai").value;
+
+
+      const tanggalSelesai =
+        document.getElementById("tanggalSelesai").value;
+
+
+      const hasil = data.filter(item => {
+
+        // Filter status
+        if (
+          filterStatus !== "Semua" &&
+          item.status !== filterStatus
+        ) {
+          return false;
+        }
+
+
+        // Filter tanggal mulai
+        if (
+          tanggalMulai &&
+          item.tanggal < tanggalMulai
+        ) {
+          return false;
+        }
+
+
+        // Filter tanggal selesai
+        if (
+          tanggalSelesai &&
+          item.tanggal > tanggalSelesai
+        ) {
+          return false;
+        }
+
+
+        return true;
+
+      });
+
+
+      // =========================
+      // STATISTIK
+      // =========================
+
+      document.getElementById("total").textContent =
+        hasil.length;
+
+
+      document.getElementById("disetujui").textContent =
+        hasil.filter(
+          item => item.status === "Disetujui"
+        ).length;
+
+
+      document.getElementById("menunggu").textContent =
+        hasil.filter(
+          item => item.status === "Menunggu Persetujuan"
+        ).length;
+
+
+      document.getElementById("ditolak").textContent =
+        hasil.filter(
+          item => item.status === "Ditolak"
+        ).length;
+
+
+      document.getElementById("dibatalkan").textContent =
+        hasil.filter(
+          item => item.status === "Dibatalkan"
+        ).length;
+
+
+      // =========================
+      // REKAP SARPRAS
+      // =========================
+
+      const rekapSarpras = {};
+
+
+      hasil.forEach(item => {
+
+        const nama =
+          item.sarpras || "Tidak diketahui";
+
+
+        if (!rekapSarpras[nama]) {
+          rekapSarpras[nama] = 0;
+        }
+
+
+        rekapSarpras[nama]++;
+
+      });
+
+
+      const sarprasTable =
+        document.getElementById("sarprasTable");
+
+
+      const daftarSarpras =
+        Object.entries(rekapSarpras)
+          .sort((a, b) => b[1] - a[1]);
+
+
+      if (daftarSarpras.length === 0) {
+
+        sarprasTable.innerHTML = `
+          <tr>
+            <td colspan="3" class="empty">
+              Belum ada data penggunaan sarpras.
+            </td>
+          </tr>
+        `;
+
+      } else {
+
+        sarprasTable.innerHTML = "";
+
+        daftarSarpras.forEach(
+          ([nama, jumlah], index) => {
+
+            sarprasTable.innerHTML += `
+              <tr>
+                <td>${index + 1}</td>
+                <td>${nama}</td>
+                <td>${jumlah}</td>
+              </tr>
+            `;
+
+          }
+        );
+
+      }
+
+
+      // =========================
+      // REKAP ORGANISASI
+      // =========================
+
+      const rekapOrganisasi = {};
+
+
+      hasil.forEach(item => {
+
+        const nama =
+          item.organisasi || "Tidak diketahui";
+
+
+        if (!rekapOrganisasi[nama]) {
+          rekapOrganisasi[nama] = 0;
+        }
+
+
+        rekapOrganisasi[nama]++;
+
+      });
+
+
+      const organisasiTable =
+        document.getElementById("organisasiTable");
+
+
+      const daftarOrganisasi =
+        Object.entries(rekapOrganisasi)
+          .sort((a, b) => b[1] - a[1]);
+
+
+      if (daftarOrganisasi.length === 0) {
+
+        organisasiTable.innerHTML = `
+          <tr>
+            <td colspan="3" class="empty">
+              Belum ada data pengajuan organisasi.
+            </td>
+          </tr>
+        `;
+
+      } else {
+
+        organisasiTable.innerHTML = "";
+
+        daftarOrganisasi.forEach(
+          ([nama, jumlah], index) => {
+
+            organisasiTable.innerHTML += `
+              <tr>
+                <td>${index + 1}</td>
+                <td>${nama}</td>
+                <td>${jumlah}</td>
+              </tr>
+            `;
+
+          }
+        );
+
+      }
+
+    }
+
+
+    function logout() {
+
+      sessionStorage.clear();
+
+      window.location.href =
+        "../login.html";
+
+    }
+
+
+    tampilkanLaporan();
+
+  </script>
+
+</body>
+          </html>
