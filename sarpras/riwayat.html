@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Riwayat Pengajuan - SIPRAS</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f4f7fb;
+      color: #1f2937;
+    }
+
+    .sidebar {
+      position: fixed;
+      left: 0;
+      top: 0;
+      width: 230px;
+      height: 100vh;
+      background: #0f2747;
+      color: white;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+
+    .logo {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .logo img {
+      width: 65px;
+      height: 65px;
+      object-fit: contain;
+    }
+
+    .logo h2 {
+      margin: 7px 0;
+    }
+
+    .logo p {
+      font-size: 10px;
+      color: #cbd5e1;
+      line-height: 1.4;
+    }
+
+    .menu a {
+      display: block;
+      color: white;
+      text-decoration: none;
+      padding: 11px;
+      margin: 4px 0;
+      border-radius: 7px;
+    }
+
+    .menu a:hover,
+    .menu a.active {
+      background: #1d4ed8;
+    }
+
+    .logout {
+      background: #dc2626 !important;
+      text-align: center;
+      margin-top: 15px !important;
+    }
+
+    .content {
+      margin-left: 230px;
+      padding: 30px;
+    }
+
+    .header {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+    }
+
+    .header h1 {
+      margin: 0 0 5px;
+      color: #0f2747;
+    }
+
+    .header p {
+      margin: 0;
+      color: #64748b;
+    }
+
+    .card {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      overflow-x: auto;
+    }
+
+    .filter {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+
+    .filter input,
+    .filter select {
+      padding: 10px;
+      border: 1px solid #cbd5e1;
+      border-radius: 6px;
+      box-sizing: border-box;
+    }
+
+    .filter input {
+      width: 300px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 1050px;
+    }
+
+    th {
+      background: #0f2747;
+      color: white;
+      padding: 11px;
+      text-align: left;
+    }
+
+    td {
+      padding: 11px;
+      border-bottom: 1px solid #e5e7eb;
+      vertical-align: top;
+    }
+
+    .status {
+      display: inline-block;
+      padding: 6px 9px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: bold;
+      white-space: nowrap;
+    }
+
+    .menunggu {
+      background: #fef3c7;
+      color: #92400e;
+    }
+
+    .disetujui {
+      background: #dcfce7;
+      color: #166534;
+    }
+
+    .ditolak {
+      background: #fee2e2;
+      color: #991b1b;
+    }
+
+    .dibatalkan {
+      background: #e5e7eb;
+      color: #374151;
+    }
+
+    .catatan {
+      margin-top: 6px;
+      font-size: 12px;
+      color: #64748b;
+      max-width: 220px;
+    }
+
+    .kosong {
+      text-align: center;
+      padding: 30px;
+      color: #64748b;
+    }
+
+    .jumlah {
+      margin-bottom: 15px;
+      color: #64748b;
+      font-size: 14px;
+    }
+
+    @media (max-width: 768px) {
+      .sidebar {
+        position: relative;
+        width: 100%;
+        height: auto;
+      }
+
+      .content {
+        margin-left: 0;
+        padding: 15px;
+      }
+
+      .filter {
+        display: block;
+      }
+
+      .filter input,
+      .filter select {
+        width: 100%;
+        margin-bottom: 8px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <aside class="sidebar">
+
+    <div class="logo">
+      <img src="../logosipras.png" alt="Logo SIPRAS">
+
+      <h2>SIPRAS</h2>
+
+      <p>
+        Sistem Informasi Sarana dan Prasarana Sekolah
+      </p>
+    </div>
+
+    <div class="menu">
+
+      <a href="dashboard.html">
+        Dashboard
+      </a>
+
+      <a href="pengajuan.html">
+        Pengajuan
+      </a>
+
+      <a href="jadwal.html">
+        Jadwal
+      </a>
+
+      <a href="data-sarpras.html">
+        Data Sarpras
+      </a>
+
+      <a href="organisasi.html">
+        Data Organisasi
+      </a>
+
+      <a href="riwayat.html" class="active">
+        Riwayat
+      </a>
+
+      <a href="laporan.html">
+        Laporan
+      </a>
+
+      <a href="#" class="logout" onclick="logout()">
+        Keluar
+      </a>
+
+    </div>
+
+  </aside>
+
+
+  <main class="content">
+
+    <div class="header">
+
+      <h1>Riwayat Pengajuan</h1>
+
+      <p>
+        Riwayat seluruh pengajuan penggunaan sarana dan prasarana sekolah.
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <div class="filter">
+
+        <input
+          type="text"
+          id="search"
+          placeholder="Cari organisasi atau sarpras..."
+          onkeyup="tampilkanData()"
+        >
+
+        <select
+          id="filterStatus"
+          onchange="tampilkanData()"
+        >
+
+          <option value="Semua">
+            Semua Status
+          </option>
+
+          <option value="Menunggu Persetujuan">
+            Menunggu Persetujuan
+          </option>
+
+          <option value="Disetujui">
+            Disetujui
+          </option>
+
+          <option value="Ditolak">
+            Ditolak
+          </option>
+
+          <option value="Dibatalkan">
+            Dibatalkan
+          </option>
+
+        </select>
+
+      </div>
+
+
+      <div class="jumlah" id="jumlahData"></div>
+
+
+      <table>
+
+        <thead>
+
+          <tr>
+            <th>No</th>
+            <th>ID Pengajuan</th>
+            <th>Organisasi</th>
+            <th>Sarpras</th>
+            <th>Tanggal</th>
+            <th>Jam</th>
+            <th>Keperluan</th>
+            <th>Status</th>
+          </tr>
+
+        </thead>
+
+        <tbody id="riwayatTable"></tbody>
+
+      </table>
+
+    </div>
+
+  </main>
+
+
+  <script>
+
+    // Proteksi halaman
+    if (
+      sessionStorage.getItem("siprasLoggedIn") !== "true" ||
+      sessionStorage.getItem("siprasRole") !== "sarpras"
+    ) {
+      window.location.href = "../login.html";
+    }
+
+
+    function ambilData() {
+
+      return JSON.parse(
+        localStorage.getItem("dataPeminjaman") || "[]"
+      );
+
+    }
+
+
+    function tampilkanData() {
+
+      const data = ambilData();
+
+      const search =
+        document
+          .getElementById("search")
+          .value
+          .toLowerCase();
+
+      const filterStatus =
+        document.getElementById("filterStatus").value;
+
+
+      const hasil = data
+        .filter(item => {
+
+          const cocokSearch =
+            (item.organisasi || "")
+              .toLowerCase()
+              .includes(search) ||
+
+            (item.sarpras || "")
+              .toLowerCase()
+              .includes(search);
+
+          const cocokStatus =
+            filterStatus === "Semua" ||
+            item.status === filterStatus;
+
+          return cocokSearch && cocokStatus;
+
+        })
+        .sort((a, b) => {
+
+          return new Date(
+            b.tanggalPengajuan || b.tanggal
+          ) - new Date(
+            a.tanggalPengajuan || a.tanggal
+          );
+
+        });
+
+
+      document.getElementById("jumlahData").textContent =
+        "Menampilkan " + hasil.length + " pengajuan.";
+
+
+      const table =
+        document.getElementById("riwayatTable");
+
+
+      if (hasil.length === 0) {
+
+        table.innerHTML = `
+          <tr>
+            <td colspan="8" class="kosong">
+              Belum ada riwayat pengajuan.
+            </td>
+          </tr>
+        `;
+
+        return;
+      }
+
+
+      table.innerHTML = "";
+
+
+      hasil.forEach((item, index) => {
+
+        let statusClass = "";
+
+        if (item.status === "Menunggu Persetujuan") {
+          statusClass = "menunggu";
+        }
+
+        else if (item.status === "Disetujui") {
+          statusClass = "disetujui";
+        }
+
+        else if (item.status === "Ditolak") {
+          statusClass = "ditolak";
+        }
+
+        else {
+          statusClass = "dibatalkan";
+        }
+
+
+        let catatan = "";
+
+        if (item.catatanAdmin) {
+
+          catatan = `
+            <div class="catatan">
+              Catatan: ${item.catatanAdmin}
+            </div>
+          `;
+
+        }
+
+
+        table.innerHTML += `
+
+          <tr>
+
+            <td>
+              ${index + 1}
+            </td>
+
+            <td>
+              ${item.id || "-"}
+            </td>
+
+            <td>
+              ${item.organisasi || "-"}
+              <br>
+              <small>
+                Pengaju: ${item.pengaju || "-"}
+              </small>
+            </td>
+
+            <td>
+              ${item.sarpras || "-"}
+            </td>
+
+            <td>
+              ${formatTanggal(item.tanggal)}
+            </td>
+
+            <td>
+              ${item.jamMulai || "-"}
+              -
+              ${item.jamSelesai || "-"}
+            </td>
+
+            <td>
+              ${item.keperluan || "-"}
+            </td>
+
+            <td>
+
+              <span class="status ${statusClass}">
+                ${item.status || "-"}
+              </span>
+
+              ${catatan}
+
+            </td>
+
+          </tr>
+
+        `;
+
+      });
+
+    }
+
+
+    function formatTanggal(tanggal) {
+
+      if (!tanggal) return "-";
+
+      const date =
+        new Date(tanggal + "T00:00:00");
+
+      return date.toLocaleDateString(
+        "id-ID",
+        {
+          day: "2-digit",
+          month: "short",
+          year: "numeric"
+        }
+      );
+
+    }
+
+
+    function logout() {
+
+      sessionStorage.clear();
+
+      window.location.href =
+        "../login.html";
+
+    }
+
+
+    tampilkanData();
+
+  </script>
+
+</body>
+</html>
