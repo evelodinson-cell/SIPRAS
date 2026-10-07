@@ -3,20 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Data Sarpras - SIPRAS</title>
+    <title>Daftar Sarpras - SIPRAS</title>
 
     <style>
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
+            font-family: Arial, sans-serif;
         }
 
         body {
-            font-family: Arial, sans-serif;
-            background: #f4f7fb;
-            color: #172033;
+            background: #f4f6f9;
+            color: #333;
         }
 
         .sidebar {
@@ -25,63 +24,43 @@
             top: 0;
             width: 250px;
             height: 100vh;
-            background: #123b63;
+            background: #1e3a8a;
             color: white;
-            padding: 25px 18px;
+            padding: 25px 15px;
         }
 
-        .brand {
+        .logo {
             text-align: center;
             margin-bottom: 30px;
         }
 
-        .brand img {
-            width: 65px;
-            height: 65px;
-            object-fit: contain;
+        .logo img {
+            width: 70px;
             margin-bottom: 10px;
         }
 
-        .brand h2 {
-            font-size: 23px;
-        }
-
-        .brand p {
-            font-size: 11px;
-            opacity: 0.8;
-            margin-top: 5px;
+        .logo h2 {
+            font-size: 20px;
         }
 
         .menu a {
             display: block;
+            padding: 13px 15px;
             color: white;
             text-decoration: none;
-            padding: 12px 15px;
-            margin-bottom: 6px;
             border-radius: 8px;
+            margin-bottom: 7px;
             font-size: 14px;
         }
 
         .menu a:hover,
         .menu a.active {
-            background: #159447;
+            background: #2563eb;
         }
 
         .logout {
-            position: absolute;
-            bottom: 25px;
-            left: 18px;
-            right: 18px;
-        }
-
-        .logout a {
-            display: block;
-            text-align: center;
-            background: #c0392b;
-            color: white;
-            text-decoration: none;
-            padding: 12px;
-            border-radius: 8px;
+            margin-top: 25px;
+            background: #dc2626 !important;
         }
 
         .main {
@@ -93,73 +72,65 @@
             background: white;
             padding: 22px 25px;
             border-radius: 12px;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            margin-bottom: 25px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
         }
 
         .header h1 {
-            color: #123b63;
-            margin-bottom: 8px;
+            color: #1e3a8a;
+            margin-bottom: 6px;
         }
 
         .header p {
-            color: #667085;
+            color: #666;
         }
 
-        .toolbar {
+        .filters {
             background: white;
             padding: 18px;
             border-radius: 12px;
             margin-bottom: 20px;
             display: flex;
-            gap: 12px;
-            flex-wrap: wrap;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            gap: 15px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
         }
 
-        .search {
+        .filters input,
+        .filters select {
+            padding: 11px 14px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
+        .filters input {
             flex: 1;
-            min-width: 220px;
-            padding: 12px;
-            border: 1px solid #d0d5dd;
-            border-radius: 8px;
-            font-size: 15px;
-            outline: none;
-        }
-
-        select {
-            padding: 12px;
-            border: 1px solid #d0d5dd;
-            border-radius: 8px;
-            font-size: 15px;
-            background: white;
         }
 
         .table-container {
             background: white;
             border-radius: 12px;
             padding: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
             overflow-x: auto;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
-            min-width: 850px;
         }
 
         th {
-            background: #123b63;
+            background: #1e3a8a;
             color: white;
-            padding: 14px;
+            padding: 13px;
             text-align: left;
             font-size: 14px;
         }
 
         td {
             padding: 13px;
-            border-bottom: 1px solid #eaecf0;
+            border-bottom: 1px solid #eee;
             font-size: 14px;
         }
 
@@ -169,48 +140,64 @@
 
         .badge {
             display: inline-block;
-            padding: 6px 10px;
+            padding: 5px 9px;
             border-radius: 20px;
             font-size: 12px;
             font-weight: bold;
         }
 
-        .available {
-            background: #dcfae6;
-            color: #067647;
+        .tersedia {
+            background: #dcfce7;
+            color: #166534;
         }
 
-        .borrowed {
-            background: #fef0c7;
-            color: #b54708;
+        .dipinjam {
+            background: #fef3c7;
+            color: #92400e;
         }
 
-        .maintenance {
-            background: #fee4e2;
-            color: #b42318;
+        .perawatan {
+            background: #dbeafe;
+            color: #1e40af;
         }
 
-        .notavailable {
-            background: #eaecf0;
-            color: #344054;
+        .tidak {
+            background: #fee2e2;
+            color: #991b1b;
         }
 
-        @media (max-width: 700px) {
+        .baik {
+            color: #166534;
+            font-weight: bold;
+        }
 
+        .rusak-ringan {
+            color: #b45309;
+            font-weight: bold;
+        }
+
+        .rusak-berat {
+            color: #b91c1c;
+            font-weight: bold;
+        }
+
+        .empty {
+            text-align: center;
+            padding: 35px;
+            color: #777;
+        }
+
+        @media (max-width: 900px) {
             .sidebar {
-                position: relative;
-                width: 100%;
-                height: auto;
+                width: 210px;
             }
 
             .main {
-                margin-left: 0;
-                padding: 15px;
+                margin-left: 210px;
             }
 
-            .logout {
-                position: static;
-                margin-top: 20px;
+            .filters {
+                flex-direction: column;
             }
         }
     </style>
@@ -218,357 +205,419 @@
 
 <body>
 
-<aside class="sidebar">
+<!-- SIDEBAR -->
 
-    <div class="brand">
+<div class="sidebar">
+
+    <div class="logo">
         <img src="../logosipras.png" alt="Logo SIPRAS">
         <h2>SIPRAS</h2>
-        <p>Organisasi Pemohon</p>
     </div>
 
-    <nav class="menu">
-        <a href="dashboard.html">Dashboard</a>
-        <a href="profil.html">Profil Organisasi</a>
-        <a href="sarpras.html" class="active">Data Sarpras</a>
-        <a href="pengajuan.html">Pengajuan</a>
-        <a href="jadwal.html">Jadwal</a>
-        <a href="riwayat.html">Riwayat</a>
-    </nav>
+    <div class="menu">
 
-    <div class="logout">
-        <a href="../login.html" onclick="logout()">Keluar</a>
+        <a href="dashboard.html">
+            🏠 Dashboard
+        </a>
+
+        <a href="sarpras.html" class="active">
+            🏫 Daftar Sarpras
+        </a>
+
+        <a href="pengajuan.html">
+            📝 Buat Pengajuan
+        </a>
+
+        <a href="jadwal.html">
+            📅 Jadwal
+        </a>
+
+        <a href="riwayat.html">
+            📋 Riwayat
+        </a>
+
+        <a href="profil.html">
+            👤 Profil
+        </a>
+
+        <a href="#" class="logout" onclick="logout()">
+            🚪 Logout
+        </a>
+
     </div>
 
-</aside>
+</div>
 
-<main class="main">
+
+<!-- MAIN -->
+
+<div class="main">
 
     <div class="header">
-        <h1>Data Sarana dan Prasarana</h1>
+
+        <h1>Daftar Sarana & Prasarana</h1>
+
         <p>
-            Lihat sarana dan prasarana yang tersedia di sekolah
-            sebelum membuat pengajuan.
+            Lihat sarana dan prasarana sekolah yang dapat digunakan untuk kegiatan organisasi.
         </p>
+
     </div>
 
-    <div class="toolbar">
+
+    <!-- FILTER -->
+
+    <div class="filters">
 
         <input
             type="text"
-            id="search"
-            class="search"
-            placeholder="Cari sarana atau prasarana..."
-            onkeyup="filterData()"
+            id="searchInput"
+            placeholder="Cari sarana/prasarana..."
+            onkeyup="renderData()"
         >
 
-        <select id="category" onchange="filterData()">
-            <option value="semua">Semua Kategori</option>
-            <option value="prasarana">Prasarana</option>
-            <option value="sarana">Sarana</option>
+        <select
+            id="kategoriFilter"
+            onchange="renderData()"
+        >
+
+            <option value="Semua">
+                Semua Kategori
+            </option>
+
+            <option value="Sarana">
+                Sarana
+            </option>
+
+            <option value="Prasarana">
+                Prasarana
+            </option>
+
+        </select>
+
+        <select
+            id="statusFilter"
+            onchange="renderData()"
+        >
+
+            <option value="Semua">
+                Semua Status
+            </option>
+
+            <option value="Tersedia">
+                Tersedia
+            </option>
+
+            <option value="Dipinjam">
+                Dipinjam
+            </option>
+
+            <option value="Dalam Perawatan">
+                Dalam Perawatan
+            </option>
+
+            <option value="Tidak Tersedia">
+                Tidak Tersedia
+            </option>
+
         </select>
 
     </div>
 
+
+    <!-- TABLE -->
+
     <div class="table-container">
 
-        <table id="sarprasTable">
+        <table>
 
             <thead>
+
                 <tr>
+
                     <th>No</th>
+
                     <th>Nama Sarpras</th>
+
                     <th>Kategori</th>
-                    <th>Kapasitas / Jumlah</th>
+
+                    <th>Kapasitas/Jumlah</th>
+
                     <th>Kondisi</th>
+
                     <th>Status</th>
+
                 </tr>
+
             </thead>
 
-            <tbody>
-
-                <tr data-category="prasarana">
-                    <td>1</td>
-                    <td>Aula Sekolah</td>
-                    <td>Prasarana</td>
-                    <td>200 orang</td>
-                    <td>Baik</td>
-                    <td>
-                        <span class="badge available">Tersedia</span>
-                    </td>
-                </tr>
-
-                <tr data-category="prasarana">
-                    <td>2</td>
-                    <td>Ruang Serbaguna</td>
-                    <td>Prasarana</td>
-                    <td>100 orang</td>
-                    <td>Baik</td>
-                    <td>
-                        <span class="badge available">Tersedia</span>
-                    </td>
-                </tr>
-
-                <tr data-category="prasarana">
-                    <td>3</td>
-                    <td>Lapangan Sekolah</td>
-                    <td>Prasarana</td>
-                    <td>300 orang</td>
-                    <td>Baik</td>
-                    <td>
-                        <span class="badge available">Tersedia</span>
-                    </td>
-                </tr>
-
-                <tr data-category="prasarana">
-                    <td>4</td>
-                    <td>Lapangan Basket</td>
-                    <td>Prasarana</td>
-                    <td>30 orang</td>
-                    <td>Baik</td>
-                    <td>
-                        <span class="badge available">Tersedia</span>
-                    </td>
-                </tr>
-
-                <tr data-category="prasarana">
-                    <td>5</td>
-                    <td>Lapangan Futsal</td>
-                    <td>Prasarana</td>
-                    <td>30 orang</td>
-                    <td>Baik</td>
-                    <td>
-                        <span class="badge available">Tersedia</span>
-                    </td>
-                </tr>
-
-                <tr data-category="prasarana">
-                    <td>6</td>
-                    <td>Ruang Kelas</td>
-                    <td>Prasarana</td>
-                    <td>36 orang</td>
-                    <td>Baik</td>
-                    <td>
-                        <span class="badge available">Tersedia</span>
-                    </td>
-                </tr>
-
-                <tr data-category="prasarana">
-                    <td>7</td>
-                    <td>Lab. Komputer</td>
-                    <td>Prasarana</td>
-                    <td>40 orang</td>
-                    <td>Baik</td>
-                    <td>
-                        <span class="badge available">Tersedia</span>
-                    </td>
-                </tr>
-
-                <tr data-category="prasarana">
-                    <td>8</td>
-                    <td>Lab. IPA</td>
-                    <td>Prasarana</td>
-                    <td>36 orang</td>
-                    <td>Baik</td>
-                    <td>
-                        <span class="badge available">Tersedia</span>
-                    </td>
-                </tr>
-
-                <tr data-category="prasarana">
-                    <td>9</td>
-                    <td>Perpustakaan</td>
-                    <td>Prasarana</td>
-                    <td>50 orang</td>
-                    <td>Baik</td>
-                    <td>
-                        <span class="badge available">Tersedia</span>
-                    </td>
-                </tr>
-
-                <tr data-category="sarana">
-                    <td>10</td>
-                    <td>Proyektor</td>
-                    <td>Sarana</td>
-                    <td>3 unit</td>
-                    <td>Baik</td>
-                    <td>
-                        <span class="badge available">Tersedia</span>
-                    </td>
-                </tr>
-
-                <tr data-category="sarana">
-                    <td>11</td>
-                    <td>Sound System</td>
-                    <td>Sarana</td>
-                    <td>2 unit</td>
-                    <td>Baik</td>
-                    <td>
-                        <span class="badge available">Tersedia</span>
-                    </td>
-                </tr>
-
-                <tr data-category="sarana">
-                    <td>12</td>
-                    <td>Microphone Wireless</td>
-                    <td>Sarana</td>
-                    <td>4 unit</td>
-                    <td>Baik</td>
-                    <td>
-                        <span class="badge available">Tersedia</span>
-                    </td>
-                </tr>
-
-                <tr data-category="sarana">
-                    <td>13</td>
-                    <td>Speaker Portable</td>
-                    <td>Sarana</td>
-                    <td>2 unit</td>
-                    <td>Baik</td>
-                    <td>
-                        <span class="badge available">Tersedia</span>
-                    </td>
-                </tr>
-
-                <tr data-category="sarana">
-                    <td>14</td>
-                    <td>Kursi</td>
-                    <td>Sarana</td>
-                    <td>200 unit</td>
-                    <td>Baik</td>
-                    <td>
-                        <span class="badge available">Tersedia</span>
-                    </td>
-                </tr>
-
-                <tr data-category="sarana">
-                    <td>15</td>
-                    <td>Meja</td>
-                    <td>Sarana</td>
-                    <td>50 unit</td>
-                    <td>Baik</td>
-                    <td>
-                        <span class="badge available">Tersedia</span>
-                    </td>
-                </tr>
-
-                <tr data-category="sarana">
-                    <td>16</td>
-                    <td>Papan Tulis</td>
-                    <td>Sarana</td>
-                    <td>10 unit</td>
-                    <td>Baik</td>
-                    <td>
-                        <span class="badge available">Tersedia</span>
-                    </td>
-                </tr>
-
-                <tr data-category="sarana">
-                    <td>17</td>
-                    <td>Kabel Roll</td>
-                    <td>Sarana</td>
-                    <td>10 unit</td>
-                    <td>Baik</td>
-                    <td>
-                        <span class="badge available">Tersedia</span>
-                    </td>
-                </tr>
-
-                <tr data-category="sarana">
-                    <td>18</td>
-                    <td>Tenda</td>
-                    <td>Sarana</td>
-                    <td>5 unit</td>
-                    <td>Baik</td>
-                    <td>
-                        <span class="badge available">Tersedia</span>
-                    </td>
-                </tr>
-
-                <tr data-category="sarana">
-                    <td>19</td>
-                    <td>Layar Proyektor</td>
-                    <td>Sarana</td>
-                    <td>3 unit</td>
-                    <td>Baik</td>
-                    <td>
-                        <span class="badge available">Tersedia</span>
-                    </td>
-                </tr>
-
-            </tbody>
+            <tbody id="dataTable"></tbody>
 
         </table>
 
     </div>
 
-</main>
+</div>
+
 
 <script>
 
-    // Proteksi halaman
+    /* ===============================
+       CEK LOGIN
+    =============================== */
+
     const loggedIn =
         sessionStorage.getItem("siprasLoggedIn");
 
     const role =
         sessionStorage.getItem("siprasRole");
 
-    if (loggedIn !== "true" || role !== "organisasi") {
-        window.location.href = "../login.html";
+
+    if (
+        loggedIn !== "true" ||
+        role !== "organisasi"
+    ) {
+
+        window.location.href =
+            "../login.html";
+
     }
 
 
-    function logout() {
+    /* ===============================
+       AMBIL DATA SARPRAS
+    =============================== */
 
-        sessionStorage.removeItem("siprasLoggedIn");
-        sessionStorage.removeItem("siprasRole");
+    let dataSarpras =
+        JSON.parse(
+            localStorage.getItem("dataSarpras")
+        ) || [];
 
-    }
 
+    /* ===============================
+       RENDER DATA
+    =============================== */
 
-    // Filter data
-    function filterData() {
+    function renderData() {
+
+        const table =
+            document.getElementById("dataTable");
 
         const search =
-            document.getElementById("search")
-            .value
-            .toLowerCase();
+            document
+                .getElementById("searchInput")
+                .value
+                .toLowerCase();
 
-        const category =
-            document.getElementById("category")
-            .value;
+        const kategori =
+            document
+                .getElementById("kategoriFilter")
+                .value;
 
-        const rows =
-            document.querySelectorAll(
-                "#sarprasTable tbody tr"
-            );
-
-
-        rows.forEach(function(row) {
-
-            const text =
-                row.innerText.toLowerCase();
-
-            const rowCategory =
-                row.dataset.category;
-
-            const matchSearch =
-                text.includes(search);
-
-            const matchCategory =
-                category === "semua" ||
-                rowCategory === category;
+        const status =
+            document
+                .getElementById("statusFilter")
+                .value;
 
 
-            row.style.display =
-                matchSearch && matchCategory
-                ? ""
-                : "none";
+        const filtered =
+            dataSarpras.filter(item => {
+
+                const cocokNama =
+                    item.nama
+                        .toLowerCase()
+                        .includes(search);
+
+
+                const cocokKategori =
+                    kategori === "Semua" ||
+                    item.kategori === kategori;
+
+
+                const cocokStatus =
+                    status === "Semua" ||
+                    item.status === status;
+
+
+                return (
+                    cocokNama &&
+                    cocokKategori &&
+                    cocokStatus
+                );
+
+            });
+
+
+        table.innerHTML = "";
+
+
+        if (filtered.length === 0) {
+
+            table.innerHTML = `
+
+                <tr>
+
+                    <td
+                        colspan="6"
+                        class="empty"
+                    >
+
+                        Tidak ada data sarana dan prasarana.
+
+                    </td>
+
+                </tr>
+
+            `;
+
+            return;
+
+        }
+
+
+        filtered.forEach((item, index) => {
+
+            let statusClass =
+                "tersedia";
+
+
+            if (
+                item.status === "Dipinjam"
+            ) {
+
+                statusClass =
+                    "dipinjam";
+
+            }
+
+
+            if (
+                item.status ===
+                "Dalam Perawatan"
+            ) {
+
+                statusClass =
+                    "perawatan";
+
+            }
+
+
+            if (
+                item.status ===
+                "Tidak Tersedia"
+            ) {
+
+                statusClass =
+                    "tidak";
+
+            }
+
+
+            let kondisiClass =
+                "baik";
+
+
+            if (
+                item.kondisi ===
+                "Rusak Ringan"
+            ) {
+
+                kondisiClass =
+                    "rusak-ringan";
+
+            }
+
+
+            if (
+                item.kondisi ===
+                "Rusak Berat"
+            ) {
+
+                kondisiClass =
+                    "rusak-berat";
+
+            }
+
+
+            table.innerHTML += `
+
+                <tr>
+
+                    <td>
+                        ${index + 1}
+                    </td>
+
+                    <td>
+                        <strong>
+                            ${item.nama}
+                        </strong>
+                    </td>
+
+                    <td>
+                        ${item.kategori}
+                    </td>
+
+                    <td>
+                        ${item.kapasitas}
+                    </td>
+
+                    <td
+                        class="${kondisiClass}"
+                    >
+                        ${item.kondisi}
+                    </td>
+
+                    <td>
+
+                        <span
+                            class="badge ${statusClass}"
+                        >
+                            ${item.status}
+                        </span>
+
+                    </td>
+
+                </tr>
+
+            `;
 
         });
 
     }
 
+
+    /* ===============================
+       LOGOUT
+    =============================== */
+
+    function logout() {
+
+        const yakin =
+            confirm(
+                "Apakah Anda yakin ingin keluar?"
+            );
+
+
+        if (!yakin) {
+            return;
+        }
+
+
+        sessionStorage.clear();
+
+
+        window.location.href =
+            "../login.html";
+
+    }
+
+
+    /* ===============================
+       UPDATE DATA SAAT HALAMAN DIBUKA
+    =============================== */
+
+    renderData();
+
 </script>
 
 </body>
-  </html>
+</html>
