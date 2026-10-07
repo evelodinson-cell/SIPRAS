@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Data Sarpras - SIPRAS</title>
 
     <style>
@@ -10,12 +11,12 @@
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: Arial, sans-serif;
         }
 
         body {
-            background: #f4f6f9;
-            color: #333;
+            font-family: Arial, sans-serif;
+            background: #f4f7fb;
+            color: #172033;
         }
 
         .sidebar {
@@ -24,43 +25,63 @@
             top: 0;
             width: 250px;
             height: 100vh;
-            background: #1e3a8a;
+            background: #123b63;
             color: white;
-            padding: 25px 15px;
+            padding: 25px 18px;
         }
 
-        .logo {
+        .brand {
             text-align: center;
             margin-bottom: 30px;
         }
 
-        .logo img {
-            width: 70px;
+        .brand img {
+            width: 65px;
+            height: 65px;
+            object-fit: contain;
             margin-bottom: 10px;
         }
 
-        .logo h2 {
-            font-size: 20px;
+        .brand h2 {
+            font-size: 23px;
+        }
+
+        .brand p {
+            font-size: 11px;
+            opacity: 0.8;
+            margin-top: 5px;
         }
 
         .menu a {
             display: block;
-            padding: 13px 15px;
             color: white;
             text-decoration: none;
+            padding: 12px 15px;
+            margin-bottom: 6px;
             border-radius: 8px;
-            margin-bottom: 7px;
             font-size: 14px;
         }
 
         .menu a:hover,
         .menu a.active {
-            background: #2563eb;
+            background: #159447;
         }
 
         .logout {
-            margin-top: 25px;
-            background: #dc2626 !important;
+            position: absolute;
+            bottom: 25px;
+            left: 18px;
+            right: 18px;
+        }
+
+        .logout a {
+            display: block;
+            text-align: center;
+            background: #c0392b;
+            color: white;
+            text-decoration: none;
+            padding: 12px;
+            border-radius: 8px;
         }
 
         .main {
@@ -72,17 +93,17 @@
             background: white;
             padding: 22px 25px;
             border-radius: 12px;
-            margin-bottom: 25px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
         }
 
         .header h1 {
-            color: #1e3a8a;
-            margin-bottom: 6px;
+            color: #123b63;
+            margin-bottom: 8px;
         }
 
         .header p {
-            color: #666;
+            color: #667085;
         }
 
         .toolbar {
@@ -91,70 +112,63 @@
             border-radius: 12px;
             margin-bottom: 20px;
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 15px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            gap: 12px;
+            flex-wrap: wrap;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
         }
 
         .search {
             flex: 1;
-        }
-
-        .search input {
-            width: 100%;
-            padding: 11px 14px;
-            border: 1px solid #ddd;
+            min-width: 220px;
+            padding: 12px;
+            border: 1px solid #d0d5dd;
             border-radius: 8px;
-            font-size: 14px;
+            font-size: 15px;
         }
 
-        button {
+        select {
+            padding: 12px;
+            border: 1px solid #d0d5dd;
+            border-radius: 8px;
+            font-size: 15px;
+            background: white;
+        }
+
+        .btn {
+            padding: 12px 20px;
             border: none;
-            cursor: pointer;
-            border-radius: 7px;
-            padding: 10px 15px;
+            border-radius: 8px;
+            background: #159447;
+            color: white;
             font-weight: bold;
-        }
-
-        .btn-primary {
-            background: #2563eb;
-            color: white;
-        }
-
-        .btn-primary:hover {
-            background: #1d4ed8;
-        }
-
-        .btn-edit {
-            background: #f59e0b;
-            color: white;
+            cursor: pointer;
         }
 
         .table-container {
             background: white;
             border-radius: 12px;
             padding: 20px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
             overflow-x: auto;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
+            min-width: 850px;
         }
 
         th {
-            background: #1e3a8a;
+            background: #123b63;
             color: white;
-            padding: 13px;
+            padding: 14px;
             text-align: left;
             font-size: 14px;
         }
 
         td {
             padding: 13px;
-            border-bottom: 1px solid #eee;
+            border-bottom: 1px solid #eaecf0;
             font-size: 14px;
         }
 
@@ -164,234 +178,294 @@
 
         .badge {
             display: inline-block;
-            padding: 5px 9px;
+            padding: 6px 10px;
             border-radius: 20px;
             font-size: 12px;
             font-weight: bold;
         }
 
-        .tersedia {
-            background: #dcfce7;
-            color: #166534;
+        .available {
+            background: #dcfae6;
+            color: #067647;
         }
 
-        .dipinjam {
-            background: #fef3c7;
-            color: #92400e;
+        .borrowed {
+            background: #fef0c7;
+            color: #b54708;
         }
 
-        .perawatan {
-            background: #dbeafe;
-            color: #1e40af;
+        .maintenance {
+            background: #fee4e2;
+            color: #b42318;
         }
 
-        .tidak {
-            background: #fee2e2;
-            color: #991b1b;
+        .notavailable {
+            background: #eaecf0;
+            color: #344054;
         }
 
-        .baik {
-            color: #166534;
-            font-weight: bold;
-        }
+        @media (max-width: 700px) {
+            .sidebar {
+                position: relative;
+                width: 100%;
+                height: auto;
+            }
 
-        .rusak-ringan {
-            color: #b45309;
-            font-weight: bold;
-        }
+            .main {
+                margin-left: 0;
+                padding: 15px;
+            }
 
-        .rusak-berat {
-            color: #b91c1c;
-            font-weight: bold;
-        }
-
-        /* MODAL */
-
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.5);
-            justify-content: center;
-            align-items: center;
-        }
-
-        .modal-content {
-            background: white;
-            width: 500px;
-            max-width: 90%;
-            border-radius: 12px;
-            padding: 25px;
-            box-shadow: 0 5px 25px rgba(0,0,0,0.2);
-        }
-
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
-        .modal-header h2 {
-            color: #1e3a8a;
-        }
-
-        .close {
-            font-size: 28px;
-            cursor: pointer;
-            color: #777;
-        }
-
-        .form-group {
-            margin-bottom: 15px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 6px;
-            font-weight: bold;
-            font-size: 14px;
-        }
-
-        .form-group input,
-        .form-group select {
-            width: 100%;
-            padding: 11px;
-            border: 1px solid #ddd;
-            border-radius: 7px;
-            font-size: 14px;
-        }
-
-        .modal-footer {
-            display: flex;
-            justify-content: flex-end;
-            gap: 10px;
-            margin-top: 20px;
-        }
-
-        .btn-cancel {
-            background: #e5e7eb;
-            color: #333;
-        }
-
-        .empty {
-            text-align: center;
-            padding: 30px;
-            color: #777;
+            .logout {
+                position: static;
+                margin-top: 20px;
+            }
         }
     </style>
 </head>
 
 <body>
 
-<!-- SIDEBAR -->
-<div class="sidebar">
+<aside class="sidebar">
 
-    <div class="logo">
+    <div class="brand">
         <img src="../logosipras.png" alt="Logo SIPRAS">
         <h2>SIPRAS</h2>
+        <p>Penanggung Jawab Sarpras</p>
     </div>
 
-    <div class="menu">
+    <nav class="menu">
+        <a href="dashboard.html">Dashboard</a>
+        <a href="pengajuan.html">Pengajuan</a>
+        <a href="jadwal.html">Jadwal</a>
+        <a href="data-sarpras.html" class="active">Data Sarpras</a>
+        <a href="organisasi.html">Data Organisasi</a>
+        <a href="riwayat.html">Riwayat</a>
+        <a href="laporan.html">Laporan</a>
+    </nav>
 
-        <a href="dashboard.html">
-            🏠 Dashboard
-        </a>
-
-        <a href="data-sarpras.html" class="active">
-            🏫 Data Sarpras
-        </a>
-
-        <a href="pengajuan.html">
-            📝 Pengajuan
-        </a>
-
-        <a href="jadwal.html">
-            📅 Jadwal
-        </a>
-
-        <a href="organisasi.html">
-            👥 Organisasi
-        </a>
-
-        <a href="riwayat.html">
-            📋 Riwayat
-        </a>
-
-        <a href="laporan.html">
-            📊 Laporan
-        </a>
-
-        <a href="#" class="logout" onclick="logout()">
-            🚪 Logout
-        </a>
-
+    <div class="logout">
+        <a href="../login.html" onclick="logout()">Keluar</a>
     </div>
 
-</div>
+</aside>
 
-
-<!-- MAIN -->
-<div class="main">
+<main class="main">
 
     <div class="header">
-
-        <h1>Data Sarana & Prasarana</h1>
-
-        <p>
-            Kelola data sarana dan prasarana sekolah.
-        </p>
-
+        <h1>Data Sarana dan Prasarana</h1>
+        <p>Kelola data sarana dan prasarana yang tersedia di sekolah.</p>
     </div>
 
-
-    <!-- TOOLBAR -->
     <div class="toolbar">
 
-        <div class="search">
-
-            <input
-                type="text"
-                id="searchInput"
-                placeholder="Cari sarana atau prasarana..."
-                onkeyup="cariData()"
-            >
-
-        </div>
-
-        <button
-            class="btn-primary"
-            onclick="bukaModal()"
+        <input
+            type="text"
+            class="search"
+            id="search"
+            placeholder="Cari sarana atau prasarana..."
+            onkeyup="filterData()"
         >
+
+        <select id="category" onchange="filterData()">
+            <option value="semua">Semua Kategori</option>
+            <option value="prasarana">Prasarana</option>
+            <option value="sarana">Sarana</option>
+        </select>
+
+        <button class="btn" onclick="alert('Fitur tambah sarpras akan dibuat pada tahap berikutnya.')">
             + Tambah Sarpras
         </button>
 
     </div>
 
-
-    <!-- TABLE -->
     <div class="table-container">
 
-        <table>
+        <table id="sarprasTable">
 
             <thead>
-
                 <tr>
                     <th>No</th>
                     <th>Nama Sarpras</th>
                     <th>Kategori</th>
-                    <th>Kapasitas/Jumlah</th>
+                    <th>Kapasitas / Jumlah</th>
                     <th>Kondisi</th>
                     <th>Status</th>
                 </tr>
-
             </thead>
 
-            <tbody id="dataTable">
+            <tbody>
+
+                <tr data-category="prasarana">
+                    <td>1</td>
+                    <td>Aula Sekolah</td>
+                    <td>Prasarana</td>
+                    <td>200 orang</td>
+                    <td>Baik</td>
+                    <td><span class="badge available">Tersedia</span></td>
+                </tr>
+
+                <tr data-category="prasarana">
+                    <td>2</td>
+                    <td>Ruang Serbaguna</td>
+                    <td>Prasarana</td>
+                    <td>100 orang</td>
+                    <td>Baik</td>
+                    <td><span class="badge available">Tersedia</span></td>
+                </tr>
+
+                <tr data-category="prasarana">
+                    <td>3</td>
+                    <td>Lapangan Sekolah</td>
+                    <td>Prasarana</td>
+                    <td>300 orang</td>
+                    <td>Baik</td>
+                    <td><span class="badge available">Tersedia</span></td>
+                </tr>
+
+                <tr data-category="prasarana">
+                    <td>4</td>
+                    <td>Lapangan Basket</td>
+                    <td>Prasarana</td>
+                    <td>30 orang</td>
+                    <td>Baik</td>
+                    <td><span class="badge available">Tersedia</span></td>
+                </tr>
+
+                <tr data-category="prasarana">
+                    <td>5</td>
+                    <td>Lapangan Futsal</td>
+                    <td>Prasarana</td>
+                    <td>30 orang</td>
+                    <td>Baik</td>
+                    <td><span class="badge available">Tersedia</span></td>
+                </tr>
+
+                <tr data-category="prasarana">
+                    <td>6</td>
+                    <td>Ruang Kelas</td>
+                    <td>Prasarana</td>
+                    <td>36 orang</td>
+                    <td>Baik</td>
+                    <td><span class="badge available">Tersedia</span></td>
+                </tr>
+
+                <tr data-category="prasarana">
+                    <td>7</td>
+                    <td>Lab. Komputer</td>
+                    <td>Prasarana</td>
+                    <td>40 orang</td>
+                    <td>Baik</td>
+                    <td><span class="badge available">Tersedia</span></td>
+                </tr>
+
+                <tr data-category="prasarana">
+                    <td>8</td>
+                    <td>Lab. IPA</td>
+                    <td>Prasarana</td>
+                    <td>36 orang</td>
+                    <td>Baik</td>
+                    <td><span class="badge available">Tersedia</span></td>
+                </tr>
+
+                <tr data-category="prasarana">
+                    <td>9</td>
+                    <td>Perpustakaan</td>
+                    <td>Prasarana</td>
+                    <td>50 orang</td>
+                    <td>Baik</td>
+                    <td><span class="badge available">Tersedia</span></td>
+                </tr>
+
+                <tr data-category="sarana">
+                    <td>10</td>
+                    <td>Proyektor</td>
+                    <td>Sarana</td>
+                    <td>3 unit</td>
+                    <td>Baik</td>
+                    <td><span class="badge available">Tersedia</span></td>
+                </tr>
+
+                <tr data-category="sarana">
+                    <td>11</td>
+                    <td>Sound System</td>
+                    <td>Sarana</td>
+                    <td>2 unit</td>
+                    <td>Baik</td>
+                    <td><span class="badge available">Tersedia</span></td>
+                </tr>
+
+                <tr data-category="sarana">
+                    <td>12</td>
+                    <td>Microphone Wireless</td>
+                    <td>Sarana</td>
+                    <td>4 unit</td>
+                    <td>Baik</td>
+                    <td><span class="badge available">Tersedia</span></td>
+                </tr>
+
+                <tr data-category="sarana">
+                    <td>13</td>
+                    <td>Speaker Portable</td>
+                    <td>Sarana</td>
+                    <td>2 unit</td>
+                    <td>Baik</td>
+                    <td><span class="badge available">Tersedia</span></td>
+                </tr>
+
+                <tr data-category="sarana">
+                    <td>14</td>
+                    <td>Kursi</td>
+                    <td>Sarana</td>
+                    <td>200 unit</td>
+                    <td>Baik</td>
+                    <td><span class="badge available">Tersedia</span></td>
+                </tr>
+
+                <tr data-category="sarana">
+                    <td>15</td>
+                    <td>Meja</td>
+                    <td>Sarana</td>
+                    <td>50 unit</td>
+                    <td>Baik</td>
+                    <td><span class="badge available">Tersedia</span></td>
+                </tr>
+
+                <tr data-category="sarana">
+                    <td>16</td>
+                    <td>Papan Tulis</td>
+                    <td>Sarana</td>
+                    <td>10 unit</td>
+                    <td>Baik</td>
+                    <td><span class="badge available">Tersedia</span></td>
+                </tr>
+
+                <tr data-category="sarana">
+                    <td>17</td>
+                    <td>Kabel Roll</td>
+                    <td>Sarana</td>
+                    <td>10 unit</td>
+                    <td>Baik</td>
+                    <td><span class="badge available">Tersedia</span></td>
+                </tr>
+
+                <tr data-category="sarana">
+                    <td>18</td>
+                    <td>Tenda</td>
+                    <td>Sarana</td>
+                    <td>5 unit</td>
+                    <td>Baik</td>
+                    <td><span class="badge available">Tersedia</span></td>
+                </tr>
+
+                <tr data-category="sarana">
+                    <td>19</td>
+                    <td>Layar Proyektor</td>
+                    <td>Sarana</td>
+                    <td>3 unit</td>
+                    <td>Baik</td>
+                    <td><span class="badge available">Tersedia</span></td>
+                </tr>
 
             </tbody>
 
@@ -399,630 +473,41 @@
 
     </div>
 
-</div>
-
-
-<!-- MODAL TAMBAH -->
-<div class="modal" id="modalTambah">
-
-    <div class="modal-content">
-
-        <div class="modal-header">
-
-            <h2>Tambah Sarpras</h2>
-
-            <span
-                class="close"
-                onclick="tutupModal()"
-            >
-                &times;
-            </span>
-
-        </div>
-
-
-        <form id="formSarpras">
-
-            <div class="form-group">
-
-                <label>
-                    Nama Sarana/Prasarana
-                </label>
-
-                <input
-                    type="text"
-                    id="namaSarpras"
-                    placeholder="Contoh: Proyektor"
-                    required
-                >
-
-            </div>
-
-
-            <div class="form-group">
-
-                <label>
-                    Kategori
-                </label>
-
-                <select
-                    id="kategori"
-                    required
-                >
-
-                    <option value="">
-                        -- Pilih Kategori --
-                    </option>
-
-                    <option value="Sarana">
-                        Sarana
-                    </option>
-
-                    <option value="Prasarana">
-                        Prasarana
-                    </option>
-
-                </select>
-
-            </div>
-
-
-            <div class="form-group">
-
-                <label>
-                    Kapasitas/Jumlah
-                </label>
-
-                <input
-                    type="text"
-                    id="kapasitas"
-                    placeholder="Contoh: 5 unit"
-                    required
-                >
-
-            </div>
-
-
-            <div class="form-group">
-
-                <label>
-                    Kondisi
-                </label>
-
-                <select
-                    id="kondisi"
-                    required
-                >
-
-                    <option value="Baik">
-                        Baik
-                    </option>
-
-                    <option value="Rusak Ringan">
-                        Rusak Ringan
-                    </option>
-
-                    <option value="Rusak Berat">
-                        Rusak Berat
-                    </option>
-
-                </select>
-
-            </div>
-
-
-            <div class="form-group">
-
-                <label>
-                    Status
-                </label>
-
-                <select
-                    id="status"
-                    required
-                >
-
-                    <option value="Tersedia">
-                        Tersedia
-                    </option>
-
-                    <option value="Dipinjam">
-                        Dipinjam
-                    </option>
-
-                    <option value="Dalam Perawatan">
-                        Dalam Perawatan
-                    </option>
-
-                    <option value="Tidak Tersedia">
-                        Tidak Tersedia
-                    </option>
-
-                </select>
-
-            </div>
-
-
-            <div class="modal-footer">
-
-                <button
-                    type="button"
-                    class="btn-cancel"
-                    onclick="tutupModal()"
-                >
-                    Batal
-                </button>
-
-                <button
-                    type="submit"
-                    class="btn-primary"
-                >
-                    Simpan
-                </button>
-
-            </div>
-
-        </form>
-
-    </div>
-
-</div>
-
+</main>
 
 <script>
 
-/* =========================================
-   CEK LOGIN ADMIN / PIHAK SEKOLAH
-========================================= */
+function filterData() {
 
-const loggedIn =
-    sessionStorage.getItem("siprasLoggedIn");
+    const search = document.getElementById("search").value.toLowerCase();
+    const category = document.getElementById("category").value;
 
-const role =
-    sessionStorage.getItem("siprasRole");
+    const rows = document.querySelectorAll("#sarprasTable tbody tr");
 
+    rows.forEach(row => {
 
-if (
-    loggedIn !== "true" ||
-    role !== "sarpras"
-) {
+        const text = row.innerText.toLowerCase();
+        const rowCategory = row.getAttribute("data-category");
 
-    window.location.href =
-        "../login.html";
+        const matchSearch = text.includes(search);
+        const matchCategory =
+            category === "semua" || rowCategory === category;
 
-}
-
-
-/* =========================================
-   DATA LAMA
-   DATA LAMA TETAP DIPERTAHANKAN
-========================================= */
-
-let dataSarpras = [
-
-    {
-        nama: "Aula Sekolah",
-        kategori: "Prasarana",
-        kapasitas: "200 orang",
-        kondisi: "Baik",
-        status: "Tersedia"
-    },
-
-    {
-        nama: "Ruang Serbaguna",
-        kategori: "Prasarana",
-        kapasitas: "100 orang",
-        kondisi: "Baik",
-        status: "Tersedia"
-    },
-
-    {
-        nama: "Lapangan Sekolah",
-        kategori: "Prasarana",
-        kapasitas: "300 orang",
-        kondisi: "Baik",
-        status: "Tersedia"
-    },
-
-    {
-        nama: "Lapangan Basket",
-        kategori: "Prasarana",
-        kapasitas: "30 orang",
-        kondisi: "Baik",
-        status: "Tersedia"
-    },
-
-    {
-        nama: "Lapangan Futsal",
-        kategori: "Prasarana",
-        kapasitas: "30 orang",
-        kondisi: "Baik",
-        status: "Tersedia"
-    },
-
-    {
-        nama: "Ruang Kelas",
-        kategori: "Prasarana",
-        kapasitas: "36 orang",
-        kondisi: "Baik",
-        status: "Tersedia"
-    },
-
-    {
-        nama: "Lab. Komputer",
-        kategori: "Prasarana",
-        kapasitas: "40 orang",
-        kondisi: "Baik",
-        status: "Tersedia"
-    },
-
-    {
-        nama: "Lab. IPA",
-        kategori: "Prasarana",
-        kapasitas: "36 orang",
-        kondisi: "Baik",
-        status: "Tersedia"
-    },
-
-    {
-        nama: "Perpustakaan",
-        kategori: "Prasarana",
-        kapasitas: "50 orang",
-        kondisi: "Baik",
-        status: "Tersedia"
-    },
-
-    {
-        nama: "Proyektor",
-        kategori: "Sarana",
-        kapasitas: "3 unit",
-        kondisi: "Baik",
-        status: "Tersedia"
-    },
-
-    {
-        nama: "Sound System",
-        kategori: "Sarana",
-        kapasitas: "2 unit",
-        kondisi: "Baik",
-        status: "Tersedia"
-    },
-
-    {
-        nama: "Microphone Wireless",
-        kategori: "Sarana",
-        kapasitas: "4 unit",
-        kondisi: "Baik",
-        status: "Tersedia"
-    },
-
-    {
-        nama: "Speaker Portable",
-        kategori: "Sarana",
-        kapasitas: "2 unit",
-        kondisi: "Baik",
-        status: "Tersedia"
-    },
-
-    {
-        nama: "Kursi",
-        kategori: "Sarana",
-        kapasitas: "200 unit",
-        kondisi: "Baik",
-        status: "Tersedia"
-    },
-
-    {
-        nama: "Meja",
-        kategori: "Sarana",
-        kapasitas: "50 unit",
-        kondisi: "Baik",
-        status: "Tersedia"
-    },
-
-    {
-        nama: "Papan Tulis",
-        kategori: "Sarana",
-        kapasitas: "10 unit",
-        kondisi: "Baik",
-        status: "Tersedia"
-    },
-
-    {
-        nama: "Kabel Roll",
-        kategori: "Sarana",
-        kapasitas: "10 unit",
-        kondisi: "Baik",
-        status: "Tersedia"
-    },
-
-    {
-        nama: "Tenda",
-        kategori: "Sarana",
-        kapasitas: "5 unit",
-        kondisi: "Baik",
-        status: "Tersedia"
-    },
-
-    {
-        nama: "Layar Proyektor",
-        kategori: "Sarana",
-        kapasitas: "3 unit",
-        kondisi: "Baik",
-        status: "Tersedia"
-    }
-
-];
-
-
-/* =========================================
-   AMBIL DATA TAMBAHAN YANG SUDAH DISIMPAN
-========================================= */
-
-const dataTambahan =
-    JSON.parse(
-        localStorage.getItem("dataSarprasTambahan")
-    ) || [];
-
-
-/* Gabungkan data lama + data tambahan */
-
-dataSarpras = [
-    ...dataSarpras,
-    ...dataTambahan
-];
-
-
-/* =========================================
-   TAMPILKAN DATA
-========================================= */
-
-function tampilkanData(data = dataSarpras) {
-
-    const table =
-        document.getElementById("dataTable");
-
-    table.innerHTML = "";
-
-
-    if (data.length === 0) {
-
-        table.innerHTML = `
-            <tr>
-                <td
-                    colspan="6"
-                    class="empty"
-                >
-                    Belum ada data sarana dan prasarana.
-                </td>
-            </tr>
-        `;
-
-        return;
-    }
-
-
-    data.forEach((item, index) => {
-
-        let statusClass = "tersedia";
-
-
-        if (item.status === "Dipinjam") {
-            statusClass = "dipinjam";
+        if (matchSearch && matchCategory) {
+            row.style.display = "";
+        } else {
+            row.style.display = "none";
         }
-
-        if (item.status === "Dalam Perawatan") {
-            statusClass = "perawatan";
-        }
-
-        if (item.status === "Tidak Tersedia") {
-            statusClass = "tidak";
-        }
-
-
-        let kondisiClass = "baik";
-
-
-        if (item.kondisi === "Rusak Ringan") {
-            kondisiClass = "rusak-ringan";
-        }
-
-        if (item.kondisi === "Rusak Berat") {
-            kondisiClass = "rusak-berat";
-        }
-
-
-        table.innerHTML += `
-
-            <tr>
-
-                <td>
-                    ${index + 1}
-                </td>
-
-                <td>
-                    <strong>
-                        ${item.nama}
-                    </strong>
-                </td>
-
-                <td>
-                    ${item.kategori}
-                </td>
-
-                <td>
-                    ${item.kapasitas}
-                </td>
-
-                <td
-                    class="${kondisiClass}"
-                >
-                    ${item.kondisi}
-                </td>
-
-                <td>
-
-                    <span
-                        class="badge ${statusClass}"
-                    >
-                        ${item.status}
-                    </span>
-
-                </td>
-
-            </tr>
-
-        `;
 
     });
 
 }
 
-
-/* =========================================
-   SEARCH
-========================================= */
-
-function cariData() {
-
-    const keyword =
-        document
-            .getElementById("searchInput")
-            .value
-            .toLowerCase();
-
-
-    const hasil =
-        dataSarpras.filter(item =>
-
-            item.nama
-                .toLowerCase()
-                .includes(keyword)
-
-        );
-
-
-    tampilkanData(hasil);
-
+function logout() {
+    sessionStorage.clear();
 }
 
+</script>
 
-/* =========================================
-   BUKA MODAL
-========================================= */
-
-function bukaModal() {
-
-    document
-        .getElementById("modalTambah")
-        .style.display = "flex";
-
-
-    document
-        .getElementById("formSarpras")
-        .reset();
-
-}
-
-
-/* =========================================
-   TUTUP MODAL
-========================================= */
-
-function tutupModal() {
-
-    document
-        .getElementById("modalTambah")
-        .style.display = "none";
-
-}
-
-
-/* =========================================
-   SIMPAN SARPRAS BARU
-========================================= */
-
-document
-    .getElementById("formSarpras")
-    .addEventListener(
-        "submit",
-        function(event) {
-
-            event.preventDefault();
-
-
-            const nama =
-                document
-                    .getElementById("namaSarpras")
-                    .value
-                    .trim();
-
-
-            const kategori =
-                document
-                    .getElementById("kategori")
-                    .value;
-
-
-            const kapasitas =
-                document
-                    .getElementById("kapasitas")
-                    .value
-                    .trim();
-
-
-            const kondisi =
-                document
-                    .getElementById("kondisi")
-                    .value;
-
-
-            const status =
-                document
-                    .getElementById("status")
-                    .value;
-
-
-            const sarprasBaru = {
-
-                nama: nama,
-
-                kategori: kategori,
-
-                kapasitas: kapasitas,
-
-                kondisi: kondisi,
-
-                status: status
-
-            };
-
-
-            /* Tambahkan ke data yang sedang tampil */
-
-            dataSarpras.push(sarprasBaru);
-
-
-            /*
-             * Simpan HANYA data tambahan.
-             * Data lama tidak disentuh.
-             */
-
-            const dataTambahanSekarang =
-                JSON.parse(
-                    localStorage.getItem(
-                        "dataSarprasTambahan"
-                    )
-                ) || [];
-
-
-            dataTambahanSekarang.push(
-                sarprasBaru
-            );
-
-
-            localStorage.setItem(
-
-                "dataSarprasTambahan",
-
-                JSON.stringify
+</body>
+</html>
