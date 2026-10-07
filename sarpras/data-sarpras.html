@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Data Sarana & Prasarana - SIPRAS</title>
+    <title>Data Sarpras - SIPRAS</title>
 
     <style>
         * {
@@ -129,12 +129,6 @@
         .btn-edit {
             background: #f59e0b;
             color: white;
-            margin-right: 5px;
-        }
-
-        .btn-delete {
-            background: #dc2626;
-            color: white;
         }
 
         .table-container {
@@ -211,12 +205,6 @@
             font-weight: bold;
         }
 
-        .empty {
-            text-align: center;
-            padding: 30px;
-            color: #777;
-        }
-
         /* MODAL */
 
         .modal {
@@ -290,19 +278,10 @@
             color: #333;
         }
 
-        @media (max-width: 900px) {
-            .sidebar {
-                width: 210px;
-            }
-
-            .main {
-                margin-left: 210px;
-            }
-
-            .toolbar {
-                flex-direction: column;
-                align-items: stretch;
-            }
+        .empty {
+            text-align: center;
+            padding: 30px;
+            color: #777;
         }
     </style>
 </head>
@@ -318,48 +297,89 @@
     </div>
 
     <div class="menu">
-        <a href="dashboard.html">🏠 Dashboard</a>
-        <a href="data-sarpras.html" class="active">🏫 Data Sarpras</a>
-        <a href="pengajuan.html">📝 Pengajuan</a>
-        <a href="jadwal.html">📅 Jadwal</a>
-        <a href="organisasi.html">👥 Organisasi</a>
-        <a href="riwayat.html">📋 Riwayat</a>
-        <a href="laporan.html">📊 Laporan</a>
-        <a href="#" class="logout" onclick="logout()">🚪 Logout</a>
+
+        <a href="dashboard.html">
+            🏠 Dashboard
+        </a>
+
+        <a href="data-sarpras.html" class="active">
+            🏫 Data Sarpras
+        </a>
+
+        <a href="pengajuan.html">
+            📝 Pengajuan
+        </a>
+
+        <a href="jadwal.html">
+            📅 Jadwal
+        </a>
+
+        <a href="organisasi.html">
+            👥 Organisasi
+        </a>
+
+        <a href="riwayat.html">
+            📋 Riwayat
+        </a>
+
+        <a href="laporan.html">
+            📊 Laporan
+        </a>
+
+        <a href="#" class="logout" onclick="logout()">
+            🚪 Logout
+        </a>
+
     </div>
 
 </div>
+
 
 <!-- MAIN -->
 <div class="main">
 
     <div class="header">
+
         <h1>Data Sarana & Prasarana</h1>
-        <p>Kelola data sarana dan prasarana sekolah.</p>
+
+        <p>
+            Kelola data sarana dan prasarana sekolah.
+        </p>
+
     </div>
 
+
+    <!-- TOOLBAR -->
     <div class="toolbar">
 
         <div class="search">
+
             <input
                 type="text"
                 id="searchInput"
-                placeholder="Cari nama sarana/prasarana..."
-                onkeyup="renderData()"
+                placeholder="Cari sarana atau prasarana..."
+                onkeyup="cariData()"
             >
+
         </div>
 
-        <button class="btn-primary" onclick="bukaModalTambah()">
+        <button
+            class="btn-primary"
+            onclick="bukaModal()"
+        >
             + Tambah Sarpras
         </button>
 
     </div>
 
+
+    <!-- TABLE -->
     <div class="table-container">
 
         <table>
 
             <thead>
+
                 <tr>
                     <th>No</th>
                     <th>Nama Sarpras</th>
@@ -367,11 +387,13 @@
                     <th>Kapasitas/Jumlah</th>
                     <th>Kondisi</th>
                     <th>Status</th>
-                    <th>Aksi</th>
                 </tr>
+
             </thead>
 
-            <tbody id="dataTable"></tbody>
+            <tbody id="dataTable">
+
+            </tbody>
 
         </table>
 
@@ -380,78 +402,161 @@
 </div>
 
 
-<!-- MODAL -->
-<div class="modal" id="modal">
+<!-- MODAL TAMBAH -->
+<div class="modal" id="modalTambah">
 
     <div class="modal-content">
 
         <div class="modal-header">
-            <h2 id="modalTitle">Tambah Sarpras</h2>
-            <span class="close" onclick="tutupModal()">&times;</span>
+
+            <h2>Tambah Sarpras</h2>
+
+            <span
+                class="close"
+                onclick="tutupModal()"
+            >
+                &times;
+            </span>
+
         </div>
 
-        <form id="sarprasForm">
+
+        <form id="formSarpras">
 
             <div class="form-group">
-                <label>Nama Sarana/Prasarana</label>
+
+                <label>
+                    Nama Sarana/Prasarana
+                </label>
+
                 <input
                     type="text"
-                    id="nama"
+                    id="namaSarpras"
                     placeholder="Contoh: Proyektor"
                     required
                 >
+
             </div>
 
+
             <div class="form-group">
-                <label>Kategori</label>
-                <select id="kategori" required>
-                    <option value="">-- Pilih Kategori --</option>
-                    <option value="Sarana">Sarana</option>
-                    <option value="Prasarana">Prasarana</option>
+
+                <label>
+                    Kategori
+                </label>
+
+                <select
+                    id="kategori"
+                    required
+                >
+
+                    <option value="">
+                        -- Pilih Kategori --
+                    </option>
+
+                    <option value="Sarana">
+                        Sarana
+                    </option>
+
+                    <option value="Prasarana">
+                        Prasarana
+                    </option>
+
                 </select>
+
             </div>
 
+
             <div class="form-group">
-                <label>Kapasitas/Jumlah</label>
+
+                <label>
+                    Kapasitas/Jumlah
+                </label>
+
                 <input
                     type="text"
                     id="kapasitas"
-                    placeholder="Contoh: 3 unit / 40 orang"
+                    placeholder="Contoh: 5 unit"
                     required
                 >
+
             </div>
 
-            <div class="form-group">
-                <label>Kondisi</label>
-                <select id="kondisi" required>
-                    <option value="Baik">Baik</option>
-                    <option value="Rusak Ringan">Rusak Ringan</option>
-                    <option value="Rusak Berat">Rusak Berat</option>
-                </select>
-            </div>
 
             <div class="form-group">
-                <label>Status</label>
-                <select id="status" required>
-                    <option value="Tersedia">Tersedia</option>
-                    <option value="Dipinjam">Dipinjam</option>
-                    <option value="Dalam Perawatan">Dalam Perawatan</option>
-                    <option value="Tidak Tersedia">Tidak Tersedia</option>
+
+                <label>
+                    Kondisi
+                </label>
+
+                <select
+                    id="kondisi"
+                    required
+                >
+
+                    <option value="Baik">
+                        Baik
+                    </option>
+
+                    <option value="Rusak Ringan">
+                        Rusak Ringan
+                    </option>
+
+                    <option value="Rusak Berat">
+                        Rusak Berat
+                    </option>
+
                 </select>
+
             </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Status
+                </label>
+
+                <select
+                    id="status"
+                    required
+                >
+
+                    <option value="Tersedia">
+                        Tersedia
+                    </option>
+
+                    <option value="Dipinjam">
+                        Dipinjam
+                    </option>
+
+                    <option value="Dalam Perawatan">
+                        Dalam Perawatan
+                    </option>
+
+                    <option value="Tidak Tersedia">
+                        Tidak Tersedia
+                    </option>
+
+                </select>
+
+            </div>
+
 
             <div class="modal-footer">
 
                 <button
                     type="button"
                     class="btn-cancel"
-                    onclick="tutupModal()">
+                    onclick="tutupModal()"
+                >
                     Batal
                 </button>
 
                 <button
                     type="submit"
-                    class="btn-primary">
+                    class="btn-primary"
+                >
                     Simpan
                 </button>
 
@@ -466,406 +571,458 @@
 
 <script>
 
-    /* ===============================
-       CEK LOGIN
-    =============================== */
+/* =========================================
+   CEK LOGIN ADMIN / PIHAK SEKOLAH
+========================================= */
 
-    const loggedIn = sessionStorage.getItem("siprasLoggedIn");
-    const role = sessionStorage.getItem("siprasRole");
+const loggedIn =
+    sessionStorage.getItem("siprasLoggedIn");
 
-    if (loggedIn !== "true" || role !== "sarpras") {
-        window.location.href = "../login.html";
+const role =
+    sessionStorage.getItem("siprasRole");
+
+
+if (
+    loggedIn !== "true" ||
+    role !== "sarpras"
+) {
+
+    window.location.href =
+        "../login.html";
+
+}
+
+
+/* =========================================
+   DATA LAMA
+   DATA LAMA TETAP DIPERTAHANKAN
+========================================= */
+
+let dataSarpras = [
+
+    {
+        nama: "Aula Sekolah",
+        kategori: "Prasarana",
+        kapasitas: "200 orang",
+        kondisi: "Baik",
+        status: "Tersedia"
+    },
+
+    {
+        nama: "Ruang Serbaguna",
+        kategori: "Prasarana",
+        kapasitas: "100 orang",
+        kondisi: "Baik",
+        status: "Tersedia"
+    },
+
+    {
+        nama: "Lapangan Sekolah",
+        kategori: "Prasarana",
+        kapasitas: "300 orang",
+        kondisi: "Baik",
+        status: "Tersedia"
+    },
+
+    {
+        nama: "Lapangan Basket",
+        kategori: "Prasarana",
+        kapasitas: "30 orang",
+        kondisi: "Baik",
+        status: "Tersedia"
+    },
+
+    {
+        nama: "Lapangan Futsal",
+        kategori: "Prasarana",
+        kapasitas: "30 orang",
+        kondisi: "Baik",
+        status: "Tersedia"
+    },
+
+    {
+        nama: "Ruang Kelas",
+        kategori: "Prasarana",
+        kapasitas: "36 orang",
+        kondisi: "Baik",
+        status: "Tersedia"
+    },
+
+    {
+        nama: "Lab. Komputer",
+        kategori: "Prasarana",
+        kapasitas: "40 orang",
+        kondisi: "Baik",
+        status: "Tersedia"
+    },
+
+    {
+        nama: "Lab. IPA",
+        kategori: "Prasarana",
+        kapasitas: "36 orang",
+        kondisi: "Baik",
+        status: "Tersedia"
+    },
+
+    {
+        nama: "Perpustakaan",
+        kategori: "Prasarana",
+        kapasitas: "50 orang",
+        kondisi: "Baik",
+        status: "Tersedia"
+    },
+
+    {
+        nama: "Proyektor",
+        kategori: "Sarana",
+        kapasitas: "3 unit",
+        kondisi: "Baik",
+        status: "Tersedia"
+    },
+
+    {
+        nama: "Sound System",
+        kategori: "Sarana",
+        kapasitas: "2 unit",
+        kondisi: "Baik",
+        status: "Tersedia"
+    },
+
+    {
+        nama: "Microphone Wireless",
+        kategori: "Sarana",
+        kapasitas: "4 unit",
+        kondisi: "Baik",
+        status: "Tersedia"
+    },
+
+    {
+        nama: "Speaker Portable",
+        kategori: "Sarana",
+        kapasitas: "2 unit",
+        kondisi: "Baik",
+        status: "Tersedia"
+    },
+
+    {
+        nama: "Kursi",
+        kategori: "Sarana",
+        kapasitas: "200 unit",
+        kondisi: "Baik",
+        status: "Tersedia"
+    },
+
+    {
+        nama: "Meja",
+        kategori: "Sarana",
+        kapasitas: "50 unit",
+        kondisi: "Baik",
+        status: "Tersedia"
+    },
+
+    {
+        nama: "Papan Tulis",
+        kategori: "Sarana",
+        kapasitas: "10 unit",
+        kondisi: "Baik",
+        status: "Tersedia"
+    },
+
+    {
+        nama: "Kabel Roll",
+        kategori: "Sarana",
+        kapasitas: "10 unit",
+        kondisi: "Baik",
+        status: "Tersedia"
+    },
+
+    {
+        nama: "Tenda",
+        kategori: "Sarana",
+        kapasitas: "5 unit",
+        kondisi: "Baik",
+        status: "Tersedia"
+    },
+
+    {
+        nama: "Layar Proyektor",
+        kategori: "Sarana",
+        kapasitas: "3 unit",
+        kondisi: "Baik",
+        status: "Tersedia"
+    }
+
+];
+
+
+/* =========================================
+   AMBIL DATA TAMBAHAN YANG SUDAH DISIMPAN
+========================================= */
+
+const dataTambahan =
+    JSON.parse(
+        localStorage.getItem("dataSarprasTambahan")
+    ) || [];
+
+
+/* Gabungkan data lama + data tambahan */
+
+dataSarpras = [
+    ...dataSarpras,
+    ...dataTambahan
+];
+
+
+/* =========================================
+   TAMPILKAN DATA
+========================================= */
+
+function tampilkanData(data = dataSarpras) {
+
+    const table =
+        document.getElementById("dataTable");
+
+    table.innerHTML = "";
+
+
+    if (data.length === 0) {
+
+        table.innerHTML = `
+            <tr>
+                <td
+                    colspan="6"
+                    class="empty"
+                >
+                    Belum ada data sarana dan prasarana.
+                </td>
+            </tr>
+        `;
+
+        return;
     }
 
 
-    /* ===============================
-       DATA DEFAULT
-    =============================== */
+    data.forEach((item, index) => {
 
-    const dataDefault = [
+        let statusClass = "tersedia";
 
-        {
-            id: "SPR-1",
-            nama: "Aula Sekolah",
-            kategori: "Prasarana",
-            kapasitas: "200 orang",
-            kondisi: "Baik",
-            status: "Tersedia"
-        },
 
-        {
-            id: "SPR-2",
-            nama: "Ruang Serbaguna",
-            kategori: "Prasarana",
-            kapasitas: "100 orang",
-            kondisi: "Baik",
-            status: "Tersedia"
-        },
-
-        {
-            id: "SPR-3",
-            nama: "Lapangan Sekolah",
-            kategori: "Prasarana",
-            kapasitas: "300 orang",
-            kondisi: "Baik",
-            status: "Tersedia"
-        },
-
-        {
-            id: "SPR-4",
-            nama: "Lapangan Basket",
-            kategori: "Prasarana",
-            kapasitas: "30 orang",
-            kondisi: "Baik",
-            status: "Tersedia"
-        },
-
-        {
-            id: "SPR-5",
-            nama: "Lapangan Futsal",
-            kategori: "Prasarana",
-            kapasitas: "30 orang",
-            kondisi: "Baik",
-            status: "Tersedia"
-        },
-
-        {
-            id: "SPR-6",
-            nama: "Ruang Kelas",
-            kategori: "Prasarana",
-            kapasitas: "36 orang",
-            kondisi: "Baik",
-            status: "Tersedia"
-        },
-
-        {
-            id: "SPR-7",
-            nama: "Lab. Komputer",
-            kategori: "Prasarana",
-            kapasitas: "40 orang",
-            kondisi: "Baik",
-            status: "Tersedia"
-        },
-
-        {
-            id: "SPR-8",
-            nama: "Lab. IPA",
-            kategori: "Prasarana",
-            kapasitas: "36 orang",
-            kondisi: "Baik",
-            status: "Tersedia"
-        },
-
-        {
-            id: "SPR-9",
-            nama: "Perpustakaan",
-            kategori: "Prasarana",
-            kapasitas: "50 orang",
-            kondisi: "Baik",
-            status: "Tersedia"
-        },
-
-        {
-            id: "SPR-10",
-            nama: "Proyektor",
-            kategori: "Sarana",
-            kapasitas: "3 unit",
-            kondisi: "Baik",
-            status: "Tersedia"
-        },
-
-        {
-            id: "SPR-11",
-            nama: "Sound System",
-            kategori: "Sarana",
-            kapasitas: "2 unit",
-            kondisi: "Baik",
-            status: "Tersedia"
-        },
-
-        {
-            id: "SPR-12",
-            nama: "Microphone Wireless",
-            kategori: "Sarana",
-            kapasitas: "4 unit",
-            kondisi: "Baik",
-            status: "Tersedia"
-        },
-
-        {
-            id: "SPR-13",
-            nama: "Speaker Portable",
-            kategori: "Sarana",
-            kapasitas: "2 unit",
-            kondisi: "Baik",
-            status: "Tersedia"
-        },
-
-        {
-            id: "SPR-14",
-            nama: "Kursi",
-            kategori: "Sarana",
-            kapasitas: "200 unit",
-            kondisi: "Baik",
-            status: "Tersedia"
-        },
-
-        {
-            id: "SPR-15",
-            nama: "Meja",
-            kategori: "Sarana",
-            kapasitas: "50 unit",
-            kondisi: "Baik",
-            status: "Tersedia"
-        },
-
-        {
-            id: "SPR-16",
-            nama: "Papan Tulis",
-            kategori: "Sarana",
-            kapasitas: "10 unit",
-            kondisi: "Baik",
-            status: "Tersedia"
-        },
-
-        {
-            id: "SPR-17",
-            nama: "Kabel Roll",
-            kategori: "Sarana",
-            kapasitas: "10 unit",
-            kondisi: "Baik",
-            status: "Tersedia"
-        },
-
-        {
-            id: "SPR-18",
-            nama: "Tenda",
-            kategori: "Sarana",
-            kapasitas: "5 unit",
-            kondisi: "Baik",
-            status: "Tersedia"
-        },
-
-        {
-            id: "SPR-19",
-            nama: "Layar Proyektor",
-            kategori: "Sarana",
-            kapasitas: "3 unit",
-            kondisi: "Baik",
-            status: "Tersedia"
+        if (item.status === "Dipinjam") {
+            statusClass = "dipinjam";
         }
 
-    ];
+        if (item.status === "Dalam Perawatan") {
+            statusClass = "perawatan";
+        }
+
+        if (item.status === "Tidak Tersedia") {
+            statusClass = "tidak";
+        }
 
 
-    /* ===============================
-       LOCAL STORAGE
-    =============================== */
-
-    let dataSarpras =
-        JSON.parse(localStorage.getItem("dataSarpras")) || dataDefault;
-
-    localStorage.setItem(
-        "dataSarpras",
-        JSON.stringify(dataSarpras)
-    );
+        let kondisiClass = "baik";
 
 
-    let editId = null;
+        if (item.kondisi === "Rusak Ringan") {
+            kondisiClass = "rusak-ringan";
+        }
+
+        if (item.kondisi === "Rusak Berat") {
+            kondisiClass = "rusak-berat";
+        }
 
 
-    /* ===============================
-       RENDER DATA
-    =============================== */
+        table.innerHTML += `
 
-    function renderData() {
+            <tr>
 
-        const table = document.getElementById("dataTable");
+                <td>
+                    ${index + 1}
+                </td>
 
-        const search =
-            document.getElementById("searchInput")
+                <td>
+                    <strong>
+                        ${item.nama}
+                    </strong>
+                </td>
+
+                <td>
+                    ${item.kategori}
+                </td>
+
+                <td>
+                    ${item.kapasitas}
+                </td>
+
+                <td
+                    class="${kondisiClass}"
+                >
+                    ${item.kondisi}
+                </td>
+
+                <td>
+
+                    <span
+                        class="badge ${statusClass}"
+                    >
+                        ${item.status}
+                    </span>
+
+                </td>
+
+            </tr>
+
+        `;
+
+    });
+
+}
+
+
+/* =========================================
+   SEARCH
+========================================= */
+
+function cariData() {
+
+    const keyword =
+        document
+            .getElementById("searchInput")
             .value
             .toLowerCase();
 
-        const filtered = dataSarpras.filter(item =>
-            item.nama.toLowerCase().includes(search)
+
+    const hasil =
+        dataSarpras.filter(item =>
+
+            item.nama
+                .toLowerCase()
+                .includes(keyword)
+
         );
 
-        table.innerHTML = "";
 
-        if (filtered.length === 0) {
+    tampilkanData(hasil);
 
-            table.innerHTML = `
-                <tr>
-                    <td colspan="7" class="empty">
-                        Data sarana dan prasarana tidak ditemukan.
-                    </td>
-                </tr>
-            `;
-
-            return;
-        }
+}
 
 
-        filtered.forEach((item, index) => {
+/* =========================================
+   BUKA MODAL
+========================================= */
 
-            let statusClass = "tersedia";
+function bukaModal() {
 
-            if (item.status === "Dipinjam") {
-                statusClass = "dipinjam";
-            }
-
-            if (item.status === "Dalam Perawatan") {
-                statusClass = "perawatan";
-            }
-
-            if (item.status === "Tidak Tersedia") {
-                statusClass = "tidak";
-            }
+    document
+        .getElementById("modalTambah")
+        .style.display = "flex";
 
 
-            let kondisiClass = "baik";
+    document
+        .getElementById("formSarpras")
+        .reset();
 
-            if (item.kondisi === "Rusak Ringan") {
-                kondisiClass = "rusak-ringan";
-            }
-
-            if (item.kondisi === "Rusak Berat") {
-                kondisiClass = "rusak-berat";
-            }
+}
 
 
-            table.innerHTML += `
+/* =========================================
+   TUTUP MODAL
+========================================= */
 
-                <tr>
+function tutupModal() {
 
-                    <td>${index + 1}</td>
+    document
+        .getElementById("modalTambah")
+        .style.display = "none";
 
-                    <td>
-                        <strong>${item.nama}</strong>
-                    </td>
-
-                    <td>${item.kategori}</td>
-
-                    <td>${item.kapasitas}</td>
-
-                    <td class="${kondisiClass}">
-                        ${item.kondisi}
-                    </td>
-
-                    <td>
-                        <span class="badge ${statusClass}">
-                            ${item.status}
-                        </span>
-                    </td>
-
-                    <td>
-
-                        <button
-                            class="btn-edit"
-                            onclick="editData('${item.id}')">
-                            Edit
-                        </button>
-
-                        <button
-                            class="btn-delete"
-                            onclick="hapusData('${item.id}')">
-                            Hapus
-                        </button>
-
-                    </td>
-
-                </tr>
-            `;
-
-        });
-
-    }
+}
 
 
-    /* ===============================
-       BUKA MODAL TAMBAH
-    =============================== */
+/* =========================================
+   SIMPAN SARPRAS BARU
+========================================= */
 
-    function bukaModalTambah() {
+document
+    .getElementById("formSarpras")
+    .addEventListener(
+        "submit",
+        function(event) {
 
-        editId = null;
+            event.preventDefault();
 
-        document.getElementById("modalTitle").textContent =
-            "Tambah Sarpras";
-
-        document.getElementById("sarprasForm").reset();
-
-        document.getElementById("modal").style.display =
-            "flex";
-    }
-
-
-    /* ===============================
-       EDIT DATA
-    =============================== */
-
-    function editData(id) {
-
-        const item = dataSarpras.find(
-            data => data.id === id
-        );
-
-        if (!item) return;
-
-        editId = id;
-
-        document.getElementById("modalTitle").textContent =
-            "Edit Sarpras";
-
-        document.getElementById("nama").value =
-            item.nama;
-
-        document.getElementById("kategori").value =
-            item.kategori;
-
-        document.getElementById("kapasitas").value =
-            item.kapasitas;
-
-        document.getElementById("kondisi").value =
-            item.kondisi;
-
-        document.getElementById("status").value =
-            item.status;
-
-        document.getElementById("modal").style.display =
-            "flex";
-    }
-
-
-    /* ===============================
-       SIMPAN DATA
-    =============================== */
-
-    document.getElementById("sarprasForm")
-        .addEventListener("submit", function(e) {
-
-            e.preventDefault();
 
             const nama =
-                document.getElementById("nama").value.trim();
+                document
+                    .getElementById("namaSarpras")
+                    .value
+                    .trim();
+
 
             const kategori =
-                document.getElementById("kategori").value;
+                document
+                    .getElementById("kategori")
+                    .value;
+
 
             const kapasitas =
-                document.getElementById("kapasitas").value.trim();
+                document
+                    .getElementById("kapasitas")
+                    .value
+                    .trim();
+
 
             const kondisi =
-                document.getElementById("kondisi").value;
+                document
+                    .getElementById("kondisi")
+                    .value;
+
 
             const status =
-                document.getElementById("status").value;
+                document
+                    .getElementById("status")
+                    .value;
 
 
-            if (editId) {
+            const sarprasBaru = {
 
-                const index =
-                    dataSarpras.findIndex(
-                        item => item.id === editId
-    
+                nama: nama,
+
+                kategori: kategori,
+
+                kapasitas: kapasitas,
+
+                kondisi: kondisi,
+
+                status: status
+
+            };
+
+
+            /* Tambahkan ke data yang sedang tampil */
+
+            dataSarpras.push(sarprasBaru);
+
+
+            /*
+             * Simpan HANYA data tambahan.
+             * Data lama tidak disentuh.
+             */
+
+            const dataTambahanSekarang =
+                JSON.parse(
+                    localStorage.getItem(
+                        "dataSarprasTambahan"
+                    )
+                ) || [];
+
+
+            dataTambahanSekarang.push(
+                sarprasBaru
+            );
+
+
+            localStorage.setItem(
+
+                "dataSarprasTambahan",
+
+                JSON.stringify
